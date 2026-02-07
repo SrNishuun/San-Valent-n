@@ -3,425 +3,982 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#ffd6e5" />
-  <title>💌 Sorpresa</title>
+  <meta name="theme-color" content="#ffd1df" />
+  <title>Valentine Edition 💘</title>
 
   <style>
     :root{
-      --bg1:#ffe7f1;
-      --bg2:#ffeef6;
-      --bg3:#ffd6e5;
-      --ink:#3a2b33;
-      --muted:#6b5861;
-      --paper:#fffafc;
-      --paper2:#fff2f7;
-      --env:#f7a5bc;
-      --env2:#f38aaa;
-      --env3:#fbd0dc;
-      --shadow: 0 20px 60px rgba(0,0,0,.18);
-      --shadow2: 0 14px 35px rgba(0,0,0,.14);
+      --pink0:#fff2f7;
+      --pink1:#ffd1df;
+      --pink2:#ffb4cc;
+      --rose:#e1174f;
+      --rose2:#ff2d6b;
+      --ink:#2a1f24;
+      --ink2:#5b4952;
+      --paper:#ffeaf2;
+      --paper2:#ffe2ee;
+      --line: rgba(225,23,79,.55);
+      --line2: rgba(225,23,79,.25);
+      --shadow: 0 26px 70px rgba(0,0,0,.18);
+      --shadow2: 0 16px 40px rgba(0,0,0,.12);
       --r: 22px;
       --ease: cubic-bezier(.2,.8,.2,1);
+      --ease2: cubic-bezier(.2,.7,.2,1);
+
+      --serif: ui-serif, "Times New Roman", Times, Georgia, serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--ink);
+      font-family: var(--sans);
       overflow:hidden;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background: linear-gradient(135deg, var(--pink0), var(--pink1));
     }
 
     /* ------------------------------
-       Fondo animado “que se mueve”
+       FONDO CON MOVIMIENTO (REAL)
+       - Aurora gradient animado
+       - Bruma (grain) en movimiento
+       - Pétalos flotando
     ------------------------------ */
-    .bg{
-      position: fixed; inset:0;
+    .bg-aurora{
+      position: fixed; inset:-20%;
       z-index:-3;
       background:
-        radial-gradient(800px 500px at 20% 20%, rgba(255,120,170,.22), transparent 60%),
-        radial-gradient(700px 420px at 80% 30%, rgba(255,255,255,.45), transparent 60%),
-        radial-gradient(900px 520px at 50% 90%, rgba(255,120,170,.16), transparent 60%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-      animation: bgDrift 10s var(--ease) infinite alternate;
-      filter: saturate(1.05);
+        radial-gradient(900px 560px at 18% 20%, rgba(225,23,79,.22), transparent 60%),
+        radial-gradient(900px 560px at 85% 30%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(900px 560px at 55% 90%, rgba(255,45,107,.14), transparent 60%),
+        linear-gradient(135deg, var(--pink0), var(--pink1));
+      filter: saturate(1.06);
+      animation: auroraDrift 10s var(--ease2) infinite alternate;
     }
-    @keyframes bgDrift{
-      from{ transform: translate3d(-1.2%, -0.8%, 0) scale(1.02); }
-      to  { transform: translate3d( 1.2%,  0.9%, 0) scale(1.06); }
+    @keyframes auroraDrift{
+      from{ transform: translate3d(-1.4%, -0.8%, 0) scale(1.02); }
+      to  { transform: translate3d( 1.4%,  1.0%, 0) scale(1.08); }
     }
 
-    /* Partículas tipo pétalos/Brillos (ligeras) */
-    .float-layer{
-      position: fixed; inset:-10%;
+    /* Bruma/ruido suave */
+    .bg-grain{
+      position: fixed; inset:-30%;
       z-index:-2;
+      opacity:.18;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0px, rgba(0,0,0,.05) 1px, transparent 2px, transparent 6px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.04) 0px, rgba(0,0,0,.04) 1px, transparent 2px, transparent 7px);
+      mix-blend-mode: multiply;
+      animation: grainMove 7s linear infinite;
+    }
+    @keyframes grainMove{
+      0%   { transform: translate3d(-2%, -2%, 0) rotate(0deg); }
+      100% { transform: translate3d( 2%,  2%, 0) rotate(1deg); }
+    }
+
+    /* Pétalos */
+    .petals{
+      position: fixed; inset:-10%;
+      z-index:-1;
       pointer-events:none;
-      opacity:.55;
+      opacity:.75;
     }
     .petal{
       position:absolute;
       width: 10px; height: 10px;
       border-radius: 4px 10px 4px 10px;
-      background: rgba(255, 90, 140, .18);
+      background: rgba(225,23,79,.16);
       filter: blur(.2px);
       animation: fall linear infinite;
     }
-    .petal:nth-child(3n){ background: rgba(255, 255, 255, .35); }
-    .petal:nth-child(4n){ background: rgba(255, 120, 170, .12); }
+    .petal:nth-child(3n){ background: rgba(255,255,255,.45); }
+    .petal:nth-child(4n){ background: rgba(255,45,107,.11); }
+
     @keyframes fall{
       0%   { transform: translate3d(var(--x), -120px, 0) rotate(0deg); opacity:0; }
-      10%  { opacity:.8; }
+      12%  { opacity:.85; }
       100% { transform: translate3d(calc(var(--x) + var(--drift)), 120vh, 0) rotate(260deg); opacity:0; }
     }
 
+    @media (prefers-reduced-motion: reduce){
+      .bg-aurora, .bg-grain, .petal{ animation:none !important; }
+    }
+
     /* ------------------------------
-       Contenedor principal
+       APP / PÁGINAS
     ------------------------------ */
-    .wrap{
-      width: min(520px, 92vw);
+    .app{
+      height:100%;
+      display:grid;
+      place-items:center;
       padding: 18px;
     }
 
-    .scene{
-      position: relative;
+    .mag{
+      width: min(560px, 94vw);
+      height: min(980px, 92vh);
       border-radius: var(--r);
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(255,255,255,.75);
-      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.52));
+      border: 1px solid rgba(255,255,255,.85);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
       overflow:hidden;
-      padding: 22px 18px 26px;
-      text-align:center;
+      position:relative;
     }
 
-    .title{
+    /* “papel” */
+    .mag::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 700px at 30% 10%, rgba(225,23,79,.08), transparent 65%),
+        radial-gradient(1200px 700px at 80% 30%, rgba(255,255,255,.55), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.20), rgba(0,0,0,.02));
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    .pages{
+      position:absolute; inset:0;
+    }
+
+    .page{
+      position:absolute; inset:0;
+      padding: 18px 18px 72px; /* deja espacio para navegación */
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      opacity:0;
+      transform: translate3d(14px, 0, 0);
+      pointer-events:none;
+      transition: opacity .35s var(--ease), transform .35s var(--ease);
+    }
+    .page.active{
+      opacity:1;
+      transform: translate3d(0,0,0);
+      pointer-events:auto;
+    }
+
+    /* Header tipo “periódico” */
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size: 12px;
+      color: rgba(42,31,36,.62);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .topline span{ opacity:.9; }
+
+    .rule{
+      height:2px;
+      background: var(--line);
+      margin: 10px 0 10px;
+      opacity:.65;
+    }
+    .rule.thin{
+      height:1px;
+      opacity:.45;
+      background: var(--line2);
+    }
+
+    /* Títulos */
+    .masthead{
+      text-align:center;
+      font-family: var(--serif);
       font-weight: 900;
       letter-spacing: -0.02em;
-      margin: 6px 0 8px;
-      font-size: 18px;
-      color: rgba(58,43,51,.85);
+      color: var(--rose);
+      font-size: 46px;
+      line-height: 1;
+      margin: 8px 0 8px;
+      text-transform: none;
     }
-    .subtitle{
-      margin: 0 0 16px;
-      color: rgba(107,88,97,.9);
-      font-size: 13.5px;
-      line-height: 1.35;
-    }
-
-    /* ------------------------------
-       Sobre + carta (CSS)
-    ------------------------------ */
-    .envelope-wrap{
-      position: relative;
-      margin: 12px auto 0;
-      width: min(360px, 86vw);
-      height: 310px;
+    .subhead-row{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      font-size: 12.5px;
+      color: rgba(42,31,36,.70);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 0 4px;
     }
 
-    /* sombra bajo el sobre */
-    .soft-shadow{
-      position:absolute;
-      left:50%; bottom: 12px;
-      transform: translateX(-50%);
-      width: 78%;
-      height: 26px;
-      background: radial-gradient(closest-side, rgba(0,0,0,.18), transparent 70%);
-      filter: blur(2px);
-      opacity:.55;
+    /* “Will you be my Valentine?” estilo grande */
+    .bigQuestion{
+      text-align:center;
+      margin: 22px 0 10px;
+      font-family: var(--serif);
+      color: rgba(225,23,79,.92);
+    }
+    .bigQuestion .small{
+      font-size: 24px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .bigQuestion .script{
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
     }
 
-    /* Carta */
-    .letter{
-      position:absolute;
-      left:50%;
-      top: 22px;
-      transform: translateX(-50%);
-      width: 86%;
-      height: 205px;
-      background: linear-gradient(180deg, var(--paper), var(--paper2));
+    .centerNote{
+      text-align:center;
+      margin: 16px 0 18px;
+      color: rgba(42,31,36,.70);
+      font-family: var(--serif);
+      letter-spacing: .02em;
+    }
+
+    /* Layout columnas (texto + foto) */
+    .columns{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:start;
+    }
+    @media (max-width: 520px){
+      .columns{ grid-template-columns: 1fr; }
+    }
+
+    .article{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(225,23,79,.18);
       border-radius: 16px;
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: var(--shadow2);
-      padding: 18px 16px 16px;
-      z-index: 2;
-      transition: transform .75s var(--ease), top .75s var(--ease), opacity .6s var(--ease);
+      padding: 12px 12px 12px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
     }
 
-    .letter::before{
-      content:"";
-      position:absolute;
-      inset: 10px;
+    .article .kicker{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      font-family: var(--serif);
+      font-style: italic;
+      color: rgba(42,31,36,.72);
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(225,23,79,.18);
+      padding-bottom: 8px;
+    }
+
+    .article p{
+      margin:0;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.78);
+      line-height: 1.55;
+      font-size: 15px;
+      white-space: pre-line;
+    }
+
+    /* Foto placeholder */
+    .photo{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(225,23,79,.18);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    }
+    .frame{
+      width:100%;
+      aspect-ratio: 1 / 1.2;
       border-radius: 12px;
-      border: 1px dashed rgba(0,0,0,.10);
-      pointer-events:none;
-    }
-
-    .letter h2{
-      margin: 8px 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
-    .letter p{
-      margin: 0;
-      color: rgba(107,88,97,.95);
-      font-size: 13.5px;
-      line-height: 1.45;
-    }
-
-    /* Corazón (botón) */
-    .heart-btn{
-      position:absolute;
-      left:50%;
-      bottom: 52px;
-      transform: translateX(-50%);
-      width: 68px;
-      height: 60px;
-      border: 0;
-      cursor: pointer;
-      background: transparent;
-      z-index: 6;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.18));
-      transition: transform .15s var(--ease);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .heart-btn:active{ transform: translateX(-50%) scale(.97); }
-
-    .heart{
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform: rotate(-45deg);
-      background: #ff3b6b;
-      border-radius: 10px;
-      animation: heartPulse 1.2s var(--ease) infinite;
-    }
-    .heart::before,
-    .heart::after{
-      content:"";
-      position:absolute;
-      width: 100%;
-      height: 100%;
-      background: #ff3b6b;
-      border-radius: 50%;
-    }
-    .heart::before{ top: -50%; left: 0; }
-    .heart::after { left: 50%; top: 0; }
-
-    @keyframes heartPulse{
-      0%,100%{ transform: rotate(-45deg) scale(1); }
-      50%    { transform: rotate(-45deg) scale(1.06); }
-    }
-
-    /* Sobre */
-    .envelope{
-      position:absolute;
-      left:50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 92%;
-      height: 190px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, var(--env), var(--env2));
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: var(--shadow2);
-      z-index: 3;
-      overflow:hidden;
-    }
-
-    /* Parte de atrás/forro */
-    .envelope::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(220px 120px at 30% 20%, rgba(255,255,255,.25), transparent 60%),
-        radial-gradient(220px 120px at 70% 35%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.06));
-      opacity:.65;
-      pointer-events:none;
-    }
-
-    /* Solapas (triángulos) */
-    .flap-top{
-      position:absolute;
-      left:0; right:0;
-      top: 0;
-      height: 0;
-      border-left: 166px solid transparent;
-      border-right: 166px solid transparent;
-      border-top: 110px solid var(--env3);
-      transform-origin: top center;
-      transform: rotateX(0deg);
-      transition: transform .75s var(--ease);
-      z-index: 5;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.10));
-    }
-
-    .flap-left{
-      position:absolute;
-      left:0; bottom:0;
-      width:0; height:0;
-      border-left: 0 solid transparent;
-      border-right: 166px solid transparent;
-      border-top: 95px solid rgba(255,255,255,.12);
-      border-bottom: 95px solid rgba(0,0,0,.03);
-      opacity:.45;
-      z-index:4;
-    }
-    .flap-right{
-      position:absolute;
-      right:0; bottom:0;
-      width:0; height:0;
-      border-left: 166px solid transparent;
-      border-right: 0 solid transparent;
-      border-top: 95px solid rgba(255,255,255,.10);
-      border-bottom: 95px solid rgba(0,0,0,.02);
-      opacity:.40;
-      z-index:4;
-    }
-    .flap-bottom{
-      position:absolute;
-      left:0; right:0;
-      bottom:0;
-      height:0;
-      border-left: 166px solid transparent;
-      border-right: 166px solid transparent;
-      border-bottom: 110px solid rgba(255,255,255,.18);
-      opacity:.55;
-      z-index:4;
-    }
-
-    /* Sello redondito (decor) */
-    .seal{
-      position:absolute;
-      left: 22px;
-      bottom: 16px;
-      width: 64px;
-      height: 64px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
-                  linear-gradient(135deg, #ff2d55, #ff7a98);
-      box-shadow: 0 14px 30px rgba(255,45,85,.25);
+        radial-gradient(240px 180px at 30% 25%, rgba(225,23,79,.10), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.06), rgba(255,255,255,.35));
+      border: 1px solid rgba(225,23,79,.20);
       display:grid;
       place-items:center;
-      z-index: 6;
-      transform: rotate(-6deg);
-      opacity:.92;
+      overflow:hidden;
+      position:relative;
     }
-    .seal span{
-      color:white;
+    .frame small{
+      color: rgba(42,31,36,.55);
+      font-weight:700;
+      letter-spacing:.02em;
+      text-align:center;
+      padding: 0 10px;
+    }
+
+    /* Botón dentro de la foto (texto) */
+    .overlayBtn{
+      margin-top: 10px;
+      display:block;
+      width:100%;
+      border-radius: 999px;
+      border: 2px solid rgba(225,23,79,.55);
+      background: rgba(255,255,255,.45);
+      color: rgba(225,23,79,.92);
       font-weight: 900;
-      font-size: 12px;
-      letter-spacing: .03em;
-      text-shadow: 0 8px 18px rgba(0,0,0,.22);
-      user-select:none;
+      padding: 10px 12px;
+      text-align:center;
+      font-family: var(--sans);
+      letter-spacing: .02em;
+    }
+
+    /* Cupones */
+    .tickets{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:stretch;
+    }
+    @media (max-width: 520px){
+      .tickets{ grid-template-columns: 1fr; }
+    }
+    .ticket{
+      border-radius: 18px;
+      border: 1px solid rgba(225,23,79,.25);
+      background: rgba(255,255,255,.60);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      overflow:hidden;
+      display:flex;
+      min-height: 86px;
+    }
+    .ticket .stub{
+      width: 78px;
+      background: linear-gradient(180deg, rgba(225,23,79,.95), rgba(255,45,107,.85));
+      color: rgba(255,255,255,.95);
+      padding: 10px 8px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align:center;
+      position:relative;
+    }
+    .ticket .stub::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%);
+      opacity:.8;
+    }
+    .ticket .body{
+      flex:1;
+      padding: 12px 12px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 6px;
+    }
+    .ticket .body .label{
+      color: rgba(42,31,36,.62);
+      font-weight: 800;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .ticket .body .value{
+      font-family: var(--serif);
+      font-weight: 900;
+      color: rgba(225,23,79,.92);
+      font-size: 18px;
+      letter-spacing: -0.01em;
     }
 
     /* ------------------------------
-       Estado: abierto
+       PÁGINA 2: Razones
     ------------------------------ */
-    .opened .flap-top{
-      transform: rotateX(160deg);
+    .bigTitle{
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(225,23,79,.95);
+      margin: 8px 0 8px;
+      line-height:1.05;
     }
-    .opened .letter{
-      top: 6px;
-      transform: translateX(-50%) translateY(-18px);
+    .bigTitle .n{
+      font-size: 54px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
     }
-    .opened .subtitle{
-      opacity:.95;
+    .bigTitle .t{
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .bigTitle .s{
+      display:block;
+      margin-top: 4px;
+      font-size: 30px;
+      font-style: italic;
+      font-weight: 900;
+      letter-spacing: -0.02em;
     }
 
-    /* Mensajito inferior (cuando abre) */
-    .after{
+    .grid5{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 520px){
+      .grid5{ grid-template-columns: 1fr; }
+    }
+
+    .reason{
+      border-radius: 18px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(225,23,79,.20);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .reason::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 260px at 20% 15%, rgba(225,23,79,.10), transparent 60%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .reason .num{
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 26px;
+      color: rgba(225,23,79,.92);
+      position:relative;
+    }
+    .reason .txt{
+      margin-top: 8px;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.78);
+      line-height: 1.45;
+      font-size: 15px;
+      position:relative;
+    }
+    .reason .heart{
+      position:absolute;
+      right: 12px;
+      bottom: 10px;
+      font-size: 22px;
+      opacity:.65;
+    }
+
+    .signals{
       margin-top: 14px;
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.74);
+    }
+    .signals h3{
+      margin: 12px 0 6px;
+      color: rgba(225,23,79,.95);
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+    .signals p{
+      margin:0;
+      font-size: 14px;
+      color: rgba(42,31,36,.65);
+    }
+    .redBoxes{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px){
+      .redBoxes{ grid-template-columns: 1fr; }
+    }
+    .red{
+      border-radius: 16px;
+      background: rgba(225,23,79,.92);
+      color: rgba(255,255,255,.95);
+      padding: 14px 12px;
+      font-weight: 800;
+      line-height: 1.35;
+      box-shadow: 0 12px 24px rgba(225,23,79,.18);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 13.5px;
+    }
+
+    /* ------------------------------
+       PÁGINA 3: La gran pregunta + dinámica NO imposible
+    ------------------------------ */
+    .grand{
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(225,23,79,.95);
+      margin: 14px 0 10px;
+      font-weight: 900;
+      font-size: 34px;
+      letter-spacing: -0.02em;
+    }
+
+    .paragraph{
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.72);
+      line-height: 1.6;
+      margin: 0 10px;
+      font-size: 16px;
+      white-space: pre-line;
+    }
+
+    .ask{
+      margin-top: 18px;
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.70);
+      font-size: 16px;
+      letter-spacing: .02em;
+    }
+
+    .bigAsk{
+      margin: 12px 0 8px;
+      text-align:center;
+      font-family: var(--serif);
+      color: rgba(225,23,79,.95);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .bigAsk .top{
+      font-size: 34px;
+    }
+    .bigAsk .bottom{
+      font-size: 40px;
+      font-style: italic;
+    }
+
+    .answers{
+      margin-top: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      align-items:center;
+    }
+
+    .yesBtn{
+      width:min(420px, 92%);
+      padding: 14px 16px;
+      border-radius: 999px;
+      border: 2px solid rgba(225,23,79,.58);
+      background: rgba(255,255,255,.55);
+      color: rgba(225,23,79,.95);
+      font-weight: 900;
+      letter-spacing: .02em;
+      box-shadow: 0 14px 28px rgba(0,0,0,.08);
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s var(--ease), filter .2s var(--ease);
+    }
+    .yesBtn:active{ transform: scale(.985); }
+    .yesBtn:hover{ filter: brightness(1.02); }
+
+    /* Botón NO escurridizo (pequeño, imposible) */
+    .noArea{
+      position: relative;
+      width:min(460px, 94%);
+      height: 92px;
+      margin-top: 6px;
+      border-radius: 18px;
+      border: 1px dashed rgba(225,23,79,.25);
+      background: rgba(255,255,255,.30);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      color: rgba(42,31,36,.60);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .noBtn{
+      position:absolute;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(20,20,25,.78);
+      color: rgba(255,255,255,.94);
+      font-weight: 900;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 14px 28px rgba(0,0,0,.12);
+      transition: transform .12s var(--ease);
+      user-select:none;
+    }
+    .noBtn:active{ transform: scale(.98); }
+
+    /* ------------------------------
+       PÁGINA 4: Confirmado
+    ------------------------------ */
+    .final{
+      height: calc(100% - 0px);
+      display:grid;
+      place-items:center;
+      padding-top: 18px;
+    }
+    .finalCard{
+      width: min(460px, 92%);
+      border-radius: 24px;
+      background: rgba(225,23,79,.88);
+      color: rgba(255,255,255,.95);
+      box-shadow: 0 22px 60px rgba(225,23,79,.22);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 20px 16px 18px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .finalCard::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(520px 360px at 20% 20%, rgba(255,255,255,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .finalCard h2{
+      margin: 6px 0 14px;
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      position:relative;
+    }
+    .lace{
+      width: 220px;
+      height: 160px;
+      margin: 0 auto 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      position:relative;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .lace::before{
+      content:"";
+      position:absolute; inset:10px;
+      border-radius: 999px;
+      border: 2px dashed rgba(225,23,79,.35);
+    }
+    .lace .txt{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-family: var(--serif);
+      font-weight: 900;
+      color: rgba(225,23,79,.92);
+      font-size: 26px;
+      letter-spacing: -0.02em;
+      padding: 0 12px;
+      text-align:center;
+    }
+    .initials{
       display:flex;
       justify-content:center;
       gap: 10px;
-      flex-wrap:wrap;
-      opacity:0;
-      transform: translateY(6px);
-      transition: opacity .4s var(--ease), transform .4s var(--ease);
+      margin-top: -12px;
+      position:relative;
     }
-    .opened .after{
-      opacity:1;
-      transform: translateY(0);
+    .init{
+      width: 58px; height: 44px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      color: rgba(225,23,79,.92);
+      font-weight: 1000;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 14px 30px rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.55);
+      font-family: var(--serif);
+      font-size: 22px;
+    }
+    .finalCard p{
+      margin: 14px 0 0;
+      position:relative;
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.55;
+      opacity:.95;
+      white-space: pre-line;
     }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(255,255,255,.85);
-      color: rgba(58,43,51,.85);
-      font-weight: 800;
-      font-size: 13px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.10);
-      user-select:none;
+    /* ------------------------------
+       Navegación inferior
+    ------------------------------ */
+    .nav{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding: 12px 16px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      background: linear-gradient(to top, rgba(255,255,255,.80), rgba(255,255,255,0));
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(225,23,79,.10);
     }
+    .nav button{
+      flex:1;
+      max-width: 220px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(225,23,79,.35);
+      background: rgba(255,255,255,.60);
+      color: rgba(225,23,79,.92);
+      font-weight: 900;
+      letter-spacing: .03em;
+      cursor:pointer;
+      box-shadow: 0 12px 24px rgba(0,0,0,.06);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
+    }
+    .nav button:active{ transform: scale(.985); }
+    .nav button[disabled]{ opacity:.40; cursor:not-allowed; }
 
-    /* Accesibilidad: respetar menos animación */
-    @media (prefers-reduced-motion: reduce){
-      .bg{ animation:none; }
-      .heart{ animation:none; }
-      .petal{ animation:none; display:none; }
-      .letter, .flap-top, .after{ transition:none; }
+    /* pequeño footer marca (puedes quitarlo) */
+    .miniFooter{
+      text-align:center;
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      color: rgba(42,31,36,.45);
+      opacity:.8;
     }
   </style>
 </head>
 
 <body>
-  <div class="bg"></div>
+  <div class="bg-aurora"></div>
+  <div class="bg-grain"></div>
+  <div class="petals" id="petals" aria-hidden="true"></div>
 
-  <!-- pétalos / brillos -->
-  <div class="float-layer" aria-hidden="true" id="petals"></div>
+  <div class="app">
+    <div class="mag" role="application" aria-label="Valentine Edition">
 
-  <main class="wrap">
-    <section class="scene" id="scene" aria-label="Sorpresa en sobre">
-      <div class="title">Te tengo una sorpresa…</div>
-      <div class="subtitle">Para descubrirla, da click sobre el corazón 💗</div>
+      <div class="pages">
 
-      <div class="envelope-wrap">
-        <div class="letter" id="letter">
-          <h2>💌 Sorpresa</h2>
-          <p>
-            Esto es solo el comienzo… <br>
-            (toca el corazón para abrir el sobre)
-          </p>
-        </div>
+        <!-- =========================
+             PAGE 1: PORTADA
+        ========================== -->
+        <section class="page active" data-page="0" aria-label="Portada">
+          <div class="topline">
+            <span>Edición especial</span>
+            <span>Valentine</span>
+            <span>Febrero</span>
+          </div>
 
-        <button class="heart-btn" id="heartBtn" aria-label="Abrir sobre">
-          <div class="heart"></div>
-        </button>
+          <div class="masthead">Valentine Edition</div>
+          <div class="rule"></div>
 
-        <div class="envelope" aria-hidden="true">
-          <div class="flap-top" id="flap"></div>
-          <div class="flap-left"></div>
-          <div class="flap-right"></div>
-          <div class="flap-bottom"></div>
-          <div class="seal"><span>LOVE</span></div>
-        </div>
+          <div class="subhead-row">
+            <span>14 de febrero</span>
+            <span>Me gustas mucho</span>
+            <span>Juntos por siempre</span>
+          </div>
 
-        <div class="soft-shadow"></div>
+          <div class="rule thin"></div>
+
+          <div class="bigQuestion">
+            <div class="small">Will you be my</div>
+            <div class="script">Valentine?</div>
+          </div>
+
+          <div class="centerNote">
+            Distribución: <b>exclusiva</b> para la persona más especial 💗
+          </div>
+
+          <div class="columns">
+            <div class="article">
+              <div class="kicker">
+                <span>Diario de amor</span>
+                <span>San Valentine</span>
+              </div>
+              <p>
+Después de que el mundo hiciera su magia y los caminos se cruzaran,
+quedó claro algo: quiero vivir este 14 de febrero contigo.
+
+Mi corazón —la única fuente confiable en estos temas— lo tiene claro desde hace tiempo.
+
+Quiero un San Valentín a tu lado, lleno de amor, risas sinceras
+y momentos que se queden grabados.
+              </p>
+            </div>
+
+            <div class="photo">
+              <div class="frame">
+                <small>
+                  (Aquí va una foto de ustedes 💞)<br/>
+                  Más adelante la ponemos.
+                </small>
+              </div>
+              <div class="overlayBtn">¿Aceptas la misión de ser mi San Valentín?</div>
+            </div>
+          </div>
+
+          <div class="tickets">
+            <div class="ticket">
+              <div class="stub">San Valentín</div>
+              <div class="body">
+                <div class="label">Cupón para:</div>
+                <div class="value">Una cita sorpresa ✨</div>
+              </div>
+            </div>
+            <div class="ticket">
+              <div class="stub">San Valentín</div>
+              <div class="body">
+                <div class="label">Cupón para:</div>
+                <div class="value">Una ida al cine 🎬</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="miniFooter">Valentine Edition</div>
+        </section>
+
+        <!-- =========================
+             PAGE 2: RAZONES
+        ========================== -->
+        <section class="page" data-page="1" aria-label="Razones">
+          <div class="topline">
+            <span>Edición especial</span>
+            <span>Me gustas mucho</span>
+            <span>Juntos por siempre</span>
+          </div>
+          <div class="rule"></div>
+
+          <div class="bigTitle">
+            <span class="n">05</span>
+            <span class="t"> Razones</span><br/>
+            <span class="s">por las que eres mi elección perfecta</span>
+          </div>
+
+          <div class="grid5">
+            <div class="reason">
+              <div class="num">1</div>
+              <div class="txt">Tienes la sonrisa más linda del universo.</div>
+              <div class="heart">❤</div>
+            </div>
+            <div class="reason">
+              <div class="num">2</div>
+              <div class="txt">Haces que mi corazón lata más rápido cada vez que te pienso.</div>
+              <div class="heart">❤</div>
+            </div>
+            <div class="reason">
+              <div class="num">3</div>
+              <div class="txt">Contigo, cualquier día se siente especial.</div>
+              <div class="heart">❤</div>
+            </div>
+            <div class="reason">
+              <div class="num">4</div>
+              <div class="txt">Eres mi persona favorita para compartir momentos.</div>
+              <div class="heart">❤</div>
+            </div>
+            <div class="reason">
+              <div class="num">5</div>
+              <div class="txt">No imagino a nadie más a mi lado en este San Valentín.</div>
+              <div class="heart">❤</div>
+            </div>
+          </div>
+
+          <div class="signals">
+            <h3>Señales de que debes decir “Sí”</h3>
+            <p>Estudios recientes han demostrado que:</p>
+          </div>
+
+          <div class="redBoxes">
+            <div class="red">Si estás leyendo esto, significa que el destino nos ha unido.</div>
+            <div class="red">Si has sonreído al menos una vez, es una señal obvia.</div>
+            <div class="red">Si te gusta el romance, somos un match perfecto.</div>
+          </div>
+
+          <div class="miniFooter">Valentine Edition</div>
+        </section>
+
+        <!-- =========================
+             PAGE 3: LA GRAN PREGUNTA + NO IMPOSIBLE
+        ========================== -->
+        <section class="page" data-page="2" aria-label="La gran pregunta">
+          <div class="topline">
+            <span>Edición especial</span>
+            <span>Me gustas mucho</span>
+            <span>Juntos por siempre</span>
+          </div>
+          <div class="rule"></div>
+
+          <div class="grand">La gran pregunta</div>
+
+          <div class="paragraph">
+Después de analizar los hechos, recopilar datos
+y comprobar la química innegable entre nosotros…
+
+Así que ahora sí…
+
+con el corazón en la mano
+y una sonrisa nerviosa:
+          </div>
+
+          <div class="bigAsk">
+            <div class="top">¿Quieres ser mi</div>
+            <div class="bottom">San Valentín?</div>
+          </div>
+
+          <div class="ask">Elige tu respuesta:</div>
+
+          <div class="answers">
+            <button class="yesBtn" id="yes1">OBVIO, LO ESTABA ESPERANDO 💘</button>
+            <button class="yesBtn" id="yes2">SÍ, POR SUPUESTOOO 💖</button>
+
+            <div class="noArea" id="noArea" aria-label="Área del botón No">
+              (El “No” es tímido 😅)
+              <button class="noBtn" id="noBtn" aria-label="No (imposible)">No 🙈</button>
+            </div>
+          </div>
+
+          <div class="miniFooter">Valentine Edition</div>
+        </section>
+
+        <!-- =========================
+             PAGE 4: CONFIRMADO
+        ========================== -->
+        <section class="page" data-page="3" aria-label="Confirmado">
+          <div class="final">
+            <div class="finalCard">
+              <h2>Confirmado oficialmente:</h2>
+
+              <div class="lace">
+                <div class="txt">Eres mi San Valentín.</div>
+              </div>
+
+              <div class="initials" aria-label="Iniciales">
+                <div class="init">A</div>
+                <div class="init">J</div>
+              </div>
+
+              <p>
+Gracias por decir que sí.
+Prepárate para un día bonito,
+sonrisas inevitables
+y recuerdos que se van a quedar.
+              </p>
+            </div>
+
+            <div class="miniFooter" style="margin-top:16px;">Valentine Edition</div>
+          </div>
+        </section>
+
       </div>
 
-      <div class="after" id="after">
-        <div class="pill">✨ ¡Listo!</div>
-        <div class="pill">💖 Ahora sí…</div>
+      <!-- NAV -->
+      <div class="nav" aria-label="Navegación">
+        <button id="prev">PAG. ANTERIOR</button>
+        <button id="next">PAG. SIGUIENTE</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script>
-    // Crear pétalos/brillos flotantes (ligero)
+    /* ------------------------------
+       PÉTALOS (fondo animado)
+    ------------------------------ */
     const petals = document.getElementById("petals");
-    const COUNT = 22;
+    const COUNT = 26;
 
     function rand(min, max){ return Math.random() * (max - min) + min; }
 
@@ -430,27 +987,111 @@
       p.className = "petal";
       p.style.left = rand(0, 100) + "vw";
       p.style.top  = rand(-20, 110) + "vh";
-      p.style.opacity = rand(.25, .8);
+      p.style.opacity = rand(.20, .85);
       p.style.width = rand(7, 12) + "px";
       p.style.height = rand(7, 12) + "px";
       p.style.setProperty("--x", rand(-20, 20) + "px");
-      p.style.setProperty("--drift", rand(-120, 120) + "px");
+      p.style.setProperty("--drift", rand(-140, 140) + "px");
       p.style.animationDuration = rand(7, 14) + "s";
       p.style.animationDelay = rand(-14, 0) + "s";
       petals.appendChild(p);
     }
 
-    // Abrir el sobre
-    const scene = document.getElementById("scene");
-    const btn = document.getElementById("heartBtn");
+    /* ------------------------------
+       PÁGINAS: anterior / siguiente
+    ------------------------------ */
+    const pages = [...document.querySelectorAll(".page")];
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    let current = 0;
 
-    let opened = false;
+    function show(i){
+      current = Math.max(0, Math.min(pages.length-1, i));
+      pages.forEach((p, idx) => p.classList.toggle("active", idx === current));
+      prev.disabled = current === 0;
+      next.disabled = current === pages.length - 1;
+      // sube al inicio del contenido de la página
+      pages[current].scrollTop = 0;
+    }
 
-    btn.addEventListener("click", () => {
-      if(opened) return;
-      opened = true;
-      scene.classList.add("opened");
-    });
+    prev.addEventListener("click", () => show(current - 1));
+    next.addEventListener("click", () => show(current + 1));
+
+    // Swipe en móvil (izq/der) opcional (suave)
+    let startX = null;
+    document.querySelector(".mag").addEventListener("touchstart", (e)=>{
+      if(e.touches.length === 1) startX = e.touches[0].clientX;
+    }, {passive:true});
+
+    document.querySelector(".mag").addEventListener("touchend", (e)=>{
+      if(startX == null) return;
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - startX;
+      startX = null;
+      if(Math.abs(dx) < 60) return;
+      if(dx < 0) show(current + 1);
+      else show(current - 1);
+    }, {passive:true});
+
+    show(0);
+
+    /* ------------------------------
+       PÁGINA 3: DINÁMICA NO IMPOSIBLE
+       - se mueve antes del click (pointerdown/touchstart)
+    ------------------------------ */
+    const noBtn = document.getElementById("noBtn");
+    const noArea = document.getElementById("noArea");
+    const yes1 = document.getElementById("yes1");
+    const yes2 = document.getElementById("yes2");
+
+    let dodges = 0;
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+    function placeNoInitial(){
+      const a = noArea.getBoundingClientRect();
+      // posición inicial dentro del área
+      const x = clamp(a.width * 0.62, 10, a.width - 120);
+      const y = clamp(a.height * 0.48, 10, a.height - 46);
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    function moveNo(){
+      const a = noArea.getBoundingClientRect();
+      const b = noBtn.getBoundingClientRect();
+      const pad = 10;
+      const maxX = a.width - b.width - pad*2;
+      const maxY = a.height - b.height - pad*2;
+
+      const x = pad + Math.random() * maxX;
+      const y = pad + Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+
+      dodges++;
+      if(dodges === 3) noBtn.textContent = "¿Eh? 😳";
+      if(dodges === 6) noBtn.textContent = "Nope 😈";
+      if(dodges === 9) noBtn.textContent = "Imposible 🙅";
+      if(dodges >= 12) noBtn.textContent = "😅";
+    }
+
+    // Captura antes de click
+    noBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); moveNo(); });
+    noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); moveNo(); }, {passive:false});
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("focus", moveNo);
+
+    window.addEventListener("resize", placeNoInitial);
+    placeNoInitial();
+
+    // Cuando dice SÍ → ir a Confirmado
+    function acceptYes(){
+      show(3);
+    }
+    yes1.addEventListener("click", acceptYes);
+    yes2.addEventListener("click", acceptYes);
   </script>
 </body>
 </html>
