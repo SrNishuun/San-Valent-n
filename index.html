@@ -4,35 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ff2d55" />
-  <title>San Valentín — Pregunta especial 💘</title>
+  <title>💘 Para mi persona favorita</title>
 
   <style>
-    /* ==========================================================
-       THEME (pro)
-    ========================================================== */
     :root{
-      --bg0:#0b0b10;
-      --bg1:#111124;
+      --bg0:#0b0b12;
+      --bg1:#15142b;
       --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.12);
       --stroke: rgba(255,255,255,.12);
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
+      --muted: rgba(255,255,255,.70);
       --muted2: rgba(255,255,255,.55);
       --accent:#ff2d55;
       --accent2:#ff6b8a;
-      --good:#35e3a4;
-      --warn:#ffd26f;
-
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --shadow: 0 24px 70px rgba(0,0,0,.55);
       --shadow2: 0 16px 40px rgba(0,0,0,.35);
-      --r: 22px;
-      --r2: 16px;
-
+      --r: 24px;
+      --r2: 18px;
       --ease: cubic-bezier(.2,.8,.2,1);
       --ease2: cubic-bezier(.2,.7,.2,1);
-
-      --max: 1080px;
     }
 
     *{ box-sizing:border-box; }
@@ -41,43 +31,38 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--text);
-      background: radial-gradient(900px 520px at 20% 10%, rgba(255,45,85,.18), transparent 60%),
-                  radial-gradient(900px 520px at 80% 20%, rgba(255,255,255,.08), transparent 60%),
-                  radial-gradient(900px 520px at 60% 90%, rgba(255,107,138,.12), transparent 60%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-    button, input{ font: inherit; }
-    ::selection{ background: rgba(255,45,85,.35); }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    }
-
-    /* ==========================================================
-       BACKGROUND: aurora + stars
-    ========================================================== */
-    .aurora{
-      position: fixed; inset:-20%;
       background:
-        radial-gradient(900px 600px at 20% 20%, rgba(255,45,85,.25), transparent 55%),
-        radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,.12), transparent 55%),
-        radial-gradient(900px 600px at 60% 80%, rgba(255,107,138,.22), transparent 55%);
-      filter: blur(30px);
-      opacity: .9;
-      z-index:-2;
-      animation: auroraMove 12s var(--ease2) infinite alternate;
+        radial-gradient(1000px 600px at 15% 10%, rgba(255,45,85,.22), transparent 60%),
+        radial-gradient(900px 560px at 85% 20%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(900px 560px at 60% 90%, rgba(255,107,138,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
     }
-    @keyframes auroraMove{
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none !important; transition:none !important; }
+    }
+
+    /* Fondo aurora */
+    .aurora{
+      position:fixed; inset:-25%;
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(255,45,85,.25), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(900px 600px at 60% 85%, rgba(255,107,138,.22), transparent 60%);
+      filter: blur(34px);
+      opacity:.9;
+      z-index:-2;
+      animation: aurora 12s var(--ease2) infinite alternate;
+    }
+    @keyframes aurora{
       from{ transform: translate3d(-2%, -1%, 0) scale(1.02); }
       to  { transform: translate3d(2%, 1%, 0) scale(1.08); }
     }
 
+    /* Estrellitas */
     .stars{
-      position: fixed; inset:0;
+      position:fixed; inset:0;
       pointer-events:none;
       z-index:-1;
       opacity:.55;
@@ -86,139 +71,81 @@
         radial-gradient(circle at 60px 75px, rgba(255,255,255,.18) 1px, transparent 2px),
         radial-gradient(circle at 120px 35px, rgba(255,255,255,.14) 1px, transparent 2px);
       background-size: 160px 120px;
-      mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 75%);
+      mask-image: radial-gradient(circle at 50% 35%, black 42%, transparent 78%);
     }
 
-    /* ==========================================================
-       LAYOUT
-    ========================================================== */
-    .container{
-      width: min(var(--max), 92vw);
-      margin: 0 auto;
+    /* Layout */
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: 22px;
     }
 
-    header{
-      position: sticky; top:0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(10,10,16,.75), rgba(10,10,16,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      padding: 14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-    }
-    .logo{
-      width: 36px; height: 36px;
-      border-radius: 12px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 60%),
-                  linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 30px rgba(255,45,85,.25);
-      display:grid; place-items:center;
-    }
-    .logo span{ filter: drop-shadow(0 8px 16px rgba(0,0,0,.35)); }
-
-    .navRight{
-      display:flex; align-items:center; gap:10px;
-    }
-
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
+    .card{
+      width:min(860px, 94vw);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border: 1px solid rgba(255,255,255,.12);
-      color: var(--muted);
-      user-select:none;
-      font-size: 13px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      overflow:hidden;
+      position:relative;
     }
 
-    .btn{
-      border: 0;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      color: var(--text);
-      transition: transform .12s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn:hover{ background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: scale(.98); }
-
-    .btnPrimary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 14px 32px rgba(255,45,85,.25);
-    }
-    .btnPrimary:hover{ filter: brightness(1.05); }
-
-    /* ==========================================================
-       HERO
-    ========================================================== */
-    .hero{
-      padding: 34px 0 22px;
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 380px at 20% 15%, rgba(255,45,85,.18), transparent 62%),
+        radial-gradient(560px 340px at 85% 25%, rgba(255,255,255,.10), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
     }
 
-    .grid{
+    .inner{
+      position:relative;
       display:grid;
       grid-template-columns: 1.1fr .9fr;
-      gap: 22px;
+      gap: 16px;
+      padding: 18px;
       align-items: stretch;
     }
 
     @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+      body{ overflow:auto; }
+      .wrap{ height:auto; padding: 18px; }
+      .inner{ grid-template-columns: 1fr; }
     }
 
-    .panel{
-      border-radius: var(--r);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border: 1px solid rgba(255,255,255,.12);
+    /* Left */
+    .left{
+      padding: 14px;
+      border-radius: var(--r2);
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow2);
       overflow:hidden;
       position:relative;
     }
 
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(500px 300px at 25% 20%, rgba(255,45,85,.18), transparent 60%),
-                  radial-gradient(500px 300px at 85% 30%, rgba(255,255,255,.10), transparent 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-
-    .heroLeft{
-      padding: 22px 22px 18px;
-    }
-
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius:999px;
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 999px;
       background: rgba(255,45,85,.10);
       border: 1px solid rgba(255,45,85,.18);
-      color: rgba(255,255,255,.86);
-      font-weight: 700;
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
       font-size: 13px;
       user-select:none;
     }
 
     h1{
       margin: 14px 0 10px;
-      font-size: clamp(28px, 3.8vw, 46px);
+      font-size: clamp(28px, 4vw, 46px);
       letter-spacing: -0.03em;
       line-height: 1.05;
     }
@@ -227,198 +154,133 @@
       margin: 0;
       color: var(--muted);
       font-size: 15.5px;
-      line-height: 1.55;
-      max-width: 60ch;
+      line-height: 1.6;
+      max-width: 62ch;
     }
 
-    .heroActions{
-      margin-top: 16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-    }
-
-    .mini{
-      font-size: 13px;
-      color: var(--muted2);
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-    }
-
-    /* Right card: interactive stage */
-    .heroRight{
-      padding: 18px;
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .cardTop{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
-    }
-
-    .title2{
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      font-size: 16px;
-      margin:0;
-    }
-    .desc2{
-      margin: 4px 0 0;
-      font-size: 13px;
+    .softline{
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
       color: var(--muted);
-      line-height: 1.4;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .softline strong{ color: rgba(255,255,255,.92); }
+
+    /* Right (interactive) */
+    .right{
+      padding: 14px;
+      border-radius: var(--r2);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      min-height: 320px;
     }
 
     .stage{
       position:relative;
-      height: 230px;
-      border-radius: var(--r2);
-      background: radial-gradient(240px 140px at 20% 30%, rgba(255,45,85,.18), transparent 65%),
-                  radial-gradient(220px 140px at 80% 45%, rgba(255,255,255,.10), transparent 65%),
-                  rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.12);
+      height: 270px;
+      border-radius: 18px;
+      background:
+        radial-gradient(260px 150px at 18% 30%, rgba(255,45,85,.18), transparent 68%),
+        radial-gradient(260px 150px at 82% 45%, rgba(255,255,255,.10), transparent 68%),
+        rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
       overflow:hidden;
-      padding: 16px;
     }
 
-    .question{
-      margin: 6px 0 10px;
+    .q{
+      text-align:center;
       font-weight: 900;
       letter-spacing: -0.02em;
       font-size: 22px;
-      text-align:center;
+      margin: 16px 12px 0;
     }
 
-    .controls{
-      position:absolute;
-      left: 0; right: 0;
-      bottom: 16px;
-      display:flex;
-      justify-content:center;
-      gap: 12px;
-      padding: 0 16px;
+    .subq{
+      text-align:center;
+      margin: 8px 14px 0;
+      color: var(--muted2);
+      font-size: 13.5px;
+      line-height: 1.35;
     }
 
     .choice{
-      min-width: 140px;
+      position:absolute;
+      min-width: 150px;
       padding: 12px 16px;
-      font-weight: 900;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 14px 30px rgba(0,0,0,.25);
-      position: absolute;
+      box-shadow: 0 14px 32px rgba(0,0,0,.25);
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s var(--ease), filter .2s var(--ease);
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap: 8px;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform .12s var(--ease), filter .2s var(--ease);
-      cursor: pointer;
     }
     .choice:active{ transform: scale(.98); }
 
     #yes{
+      left: 50%;
+      top: 68%;
+      transform: translate(-118%, -50%);
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: white;
-      left: 50%;
-      top: 63%;
-      transform: translate(-120%, -50%);
     }
+    #yes:hover{ filter: brightness(1.05); }
 
     #no{
+      left: 50%;
+      top: 68%;
+      transform: translate(18%, -50%);
       background: rgba(0,0,0,.65);
       color: rgba(255,255,255,.92);
-      left: 50%;
-      top: 63%;
-      transform: translate(20%, -50%);
       backdrop-filter: blur(10px);
     }
 
-    .tip{
-      margin: 0;
+    .tiny{
+      margin: 10px 0 0;
+      text-align:center;
       color: var(--muted2);
       font-size: 12.5px;
-      text-align:center;
     }
 
-    /* ==========================================================
-       SECTIONS (premium extras)
-    ========================================================== */
-    .section{
-      padding: 16px 0 34px;
-    }
-    .cards3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 900px){
-      .cards3{ grid-template-columns: 1fr; }
-    }
-
-    .feature{
-      padding: 16px;
-      border-radius: var(--r2);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 10px 28px rgba(0,0,0,.18);
-      position:relative;
-      overflow:hidden;
-    }
-    .feature::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(380px 200px at 20% 10%, rgba(255,45,85,.14), transparent 60%),
-                  radial-gradient(300px 200px at 90% 30%, rgba(255,255,255,.08), transparent 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .feature h3{
-      margin: 0 0 6px;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      position:relative;
-    }
-    .feature p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.45;
-      position:relative;
-    }
-
-    /* ==========================================================
-       MODAL + FINAL SCREEN
-    ========================================================== */
+    /* Modal (final) */
     .overlay{
-      position: fixed; inset:0;
+      position:fixed; inset:0;
       display:none;
       align-items:center;
       justify-content:center;
       padding: 18px;
-      background: rgba(0,0,0,.55);
-      z-index: 100;
+      background: rgba(0,0,0,.62);
+      z-index: 50;
     }
     .overlay.open{ display:flex; }
 
     .modal{
-      width: min(760px, 95vw);
+      width:min(740px, 95vw);
       border-radius: 26px;
       overflow:hidden;
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
       position:relative;
     }
 
     .modalTop{
-      padding: 16px;
+      padding: 14px 16px;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -427,20 +289,16 @@
       background: rgba(0,0,0,.22);
     }
     .modalTitle{
-      display:flex;
-      align-items:center;
-      gap:10px;
       font-weight: 900;
-      letter-spacing:-0.02em;
+      letter-spacing: -0.02em;
     }
-    .close{
-      border:0;
-      cursor:pointer;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.12);
+    .x{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
       color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
     }
 
     .modalBody{
@@ -464,20 +322,21 @@
     .box::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(500px 260px at 20% 20%, rgba(255,45,85,.15), transparent 60%),
-                  radial-gradient(420px 240px at 80% 40%, rgba(255,255,255,.08), transparent 60%);
-      opacity:.85;
+      background:
+        radial-gradient(520px 280px at 20% 20%, rgba(255,45,85,.15), transparent 62%),
+        radial-gradient(420px 240px at 80% 45%, rgba(255,255,255,.08), transparent 62%);
+      opacity:.9;
       pointer-events:none;
     }
-    .box h4{ margin:0 0 8px; position:relative; }
-    .box p{ margin:0; position:relative; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .box h3{ margin:0 0 8px; position:relative; }
+    .box p{ margin:0; position:relative; color: var(--muted); line-height: 1.55; font-size: 14px; }
 
     .picker{
+      position:relative;
       margin-top: 12px;
       display:flex;
       flex-wrap:wrap;
       gap: 10px;
-      position:relative;
     }
     .tag{
       border: 1px solid rgba(255,255,255,.16);
@@ -488,10 +347,9 @@
       cursor:pointer;
       user-select:none;
       transition: transform .12s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
     }
-    .tag:hover{ background: rgba(255,255,255,.10); }
     .tag:active{ transform: scale(.98); }
     .tag.active{
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -499,83 +357,56 @@
       box-shadow: 0 14px 30px rgba(255,45,85,.22);
     }
 
+    .finalLine{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+      line-height: 1.4;
+      position:relative;
+    }
+
     .modalBottom{
       padding: 14px 16px 16px;
       border-top: 1px solid rgba(255,255,255,.10);
       display:flex;
       gap: 10px;
-      flex-wrap:wrap;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
       background: rgba(0,0,0,.18);
     }
 
-    .status{
-      color: var(--muted);
-      font-size: 13px;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap:wrap;
+    .btn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 11px 14px;
+      cursor:pointer;
+      font-weight: 900;
+      transition: transform .12s var(--ease), filter .2s var(--ease);
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
     }
-
-    .ctaRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
+    .btn:active{ transform: scale(.98); }
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 14px 32px rgba(255,45,85,.22);
     }
+    .btnPrimary:hover{ filter: brightness(1.05); }
 
-    /* ==========================================================
-       HEART CONFETTI
-    ========================================================== */
+    /* Confetti hearts */
     .heart{
       position: fixed;
       top: -24px;
-      z-index: 110;
+      z-index: 80;
       pointer-events:none;
       will-change: transform, opacity;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
-    }
-
-    /* ==========================================================
-       PRELOADER
-    ========================================================== */
-    .loader{
-      position: fixed; inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index: 200;
-      background: linear-gradient(180deg, rgba(10,10,16,.95), rgba(10,10,16,.75));
-      backdrop-filter: blur(12px);
-      transition: opacity .5s var(--ease);
-    }
-    .loader.hide{ opacity:0; pointer-events:none; }
-    .spinner{
-      width: 86px; height: 86px;
-      border-radius: 26px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow2);
-      display:grid;
-      place-items:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .spinner::before{
-      content:"";
-      width: 160px; height: 160px;
-      position:absolute;
-      background: conic-gradient(from 0deg, rgba(255,45,85,.0), rgba(255,45,85,.55), rgba(255,255,255,.0));
-      animation: spin 1.2s linear infinite;
-    }
-    @keyframes spin{ to{ transform: rotate(360deg);} }
-    .spinner strong{
-      position:relative;
-      font-size: 18px;
-      letter-spacing: -0.02em;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
     }
   </style>
 </head>
@@ -584,227 +415,111 @@
   <div class="aurora"></div>
   <div class="stars"></div>
 
-  <!-- Loader -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="spinner"><strong>💘</strong></div>
-  </div>
-
-  <header>
-    <div class="container">
-      <div class="nav">
-        <div class="brand">
-          <div class="logo"><span>💖</span></div>
-          <div>
-            <div style="font-size:14px; line-height:1.1;">San Valentín</div>
-            <div style="font-size:12px; color:var(--muted2);">Página especial</div>
-          </div>
-        </div>
-
-        <div class="navRight">
-          <div class="chip" id="chip">🔒 Modo: imposible decir “No”</div>
-          <button class="btn" id="copyLink">Copiar link 🔗</button>
-          <button class="btn btnPrimary" id="scrollTo">Ir a la pregunta 💘</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero" id="top">
-      <div class="grid">
+  <div class="wrap">
+    <section class="card" aria-label="Página especial">
+      <div class="inner">
         <!-- LEFT -->
-        <div class="panel">
-          <div class="heroLeft">
-            <div class="kicker">✨ Nivel PRO • Interactivo • Mobile</div>
-            <h1>Una pregunta.<br>Un “sí”.<br>Un plan. 💘</h1>
-            <p class="lead">
-              Esta página está hecha para una misión: hacerte sonreír y
-              conseguir el “Sí” más bonito del universo. (El “No” es tímido y sale corriendo 😅)
-            </p>
+        <div class="left">
+          <div class="badge">💌 Para mi persona favorita</div>
+          <h1>Hoy vengo a hacerte una pregunta… 💘</h1>
+          <p class="lead">
+            Nada complicado: solo una respuesta.
+            <br>Prometo que si dices que sí, te haré sonreír muchísimo.
+          </p>
 
-            <div class="heroActions">
-              <button class="btn btnPrimary" id="openQuestion">Abrir pregunta 💖</button>
-              <button class="btn" id="surprise">Sorpresa ✨</button>
-            </div>
-
-            <div class="mini">
-              <span>✅ Sin dominio</span>
-              <span>✅ GitHub Pages</span>
-              <span>✅ Cero librerías</span>
-            </div>
+          <div class="softline" id="softline">
+            <strong>Nota:</strong> El botón “No” es muy tímido… y se asusta si lo intentas tocar 😅
           </div>
         </div>
 
         <!-- RIGHT -->
-        <div class="panel" id="questionPanel">
-          <div class="heroRight">
-            <div class="cardTop">
-              <div>
-                <p class="title2">Centro de control 💘</p>
-                <p class="desc2">Responde… si puedes 😈</p>
-              </div>
-              <div class="chip">⚡ Interactivo</div>
-            </div>
+        <div class="right">
+          <div class="stage" id="stage">
+            <div class="q" id="q">¿Quieres ser mi 14 de febrero? 💖</div>
+            <div class="subq" id="subq">Elige con el corazón 😌</div>
 
-            <div class="stage" id="stage" role="group" aria-label="Área interactiva">
-              <div class="question" id="questionText">¿Quieres ser mi 14 de febrero? 💘</div>
-
-              <button class="choice" id="yes">Sí 💖</button>
-              <button class="choice" id="no" aria-label="No (botón imposible)">No 🙈</button>
-            </div>
-
-            <p class="tip" id="tip">Tip: intenta tocar “No”… si te deja 😅</p>
+            <button class="choice" id="yes">Sí 💘</button>
+            <button class="choice" id="no" aria-label="No (imposible)">No 🙈</button>
           </div>
+
+          <div class="tiny" id="tiny">Intenta tocar “No”… si puedes 😈</div>
         </div>
       </div>
     </section>
+  </div>
 
-    <section class="section">
-      <div class="cards3">
-        <div class="feature">
-          <h3>🎨 Diseño premium</h3>
-          <p>Glassmorphism, aurora y detalles modernos para que se sienta “sitio real”.</p>
-        </div>
-        <div class="feature">
-          <h3>🧠 Interacción inteligente</h3>
-          <p>El botón “No” detecta intención y huye antes del click (mouse + táctil).</p>
-        </div>
-        <div class="feature">
-          <h3>📱 Perfecto en celular</h3>
-          <p>Responsive, táctil, fluido y listo para compartir por WhatsApp.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- MODAL -->
+  <!-- MODAL FINAL -->
   <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Confirmación">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Final">
       <div class="modalTop">
-        <div class="modalTitle">🎉 Confirmación de misión</div>
-        <button class="close" id="closeModal">Cerrar ✕</button>
+        <div class="modalTitle">🎉 ¡Siii! 💖</div>
+        <button class="x" id="close">Cerrar ✕</button>
       </div>
 
       <div class="modalBody">
         <div class="box">
-          <h4>🥰 ¡Dijo que sí!</h4>
-          <p id="msgFinal">
-            Sabía que dirías que sí. Ahora toca elegir el plan ✨
+          <h3>🥰 Me hiciste el día</h3>
+          <p id="msg">
+            Entonces… queda oficial: <strong>tú y yo</strong> el 14 💘
           </p>
 
-          <div class="picker" id="planPicker">
-            <div class="tag active" data-plan="Cena rica 🍝">Cena rica 🍝</div>
-            <div class="tag" data-plan="Helado + paseo 🍦">Helado + paseo 🍦</div>
-            <div class="tag" data-plan="Cine 🎬">Cine 🎬</div>
-            <div class="tag" data-plan="Picnic 🧺">Picnic 🧺</div>
+          <div class="finalLine" id="finalLine">
+            Plan elegido: <span id="chosenPlan">Cena rica 🍝</span><br>
+            Hora: <span id="chosenTime">7:00 pm</span>
           </div>
         </div>
 
         <div class="box">
-          <h4>📅 Mini-confirmación</h4>
-          <p>
-            Selecciona una hora y guarda el mensaje listo para enviar.
-          </p>
+          <h3>✨ Elige el plan</h3>
+          <p>Escoge lo que más te antoje. (Puedes cambiarlo cuantas veces quieras)</p>
 
-          <div class="picker" id="timePicker" style="margin-top:12px;">
-            <div class="tag active" data-time="6:00 pm">6:00 pm</div>
-            <div class="tag" data-time="7:00 pm">7:00 pm</div>
-            <div class="tag" data-time="8:00 pm">8:00 pm</div>
+          <div class="picker" id="planPicker">
+            <div class="tag active" data-plan="Cena rica 🍝">Cena rica 🍝</div>
+            <div class="tag" data-plan="Cine 🎬">Cine 🎬</div>
+            <div class="tag" data-plan="Helado + paseo 🍦">Helado + paseo 🍦</div>
+            <div class="tag" data-plan="Picnic 🧺">Picnic 🧺</div>
           </div>
 
-          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; position:relative;">
-            <button class="btn btnPrimary" id="copyMessage">Copiar mensaje 💌</button>
-            <button class="btn" id="copyPage">Copiar link 🔗</button>
+          <div class="picker" id="timePicker" style="margin-top:12px;">
+            <div class="tag" data-time="6:00 pm">6:00 pm</div>
+            <div class="tag active" data-time="7:00 pm">7:00 pm</div>
+            <div class="tag" data-time="8:00 pm">8:00 pm</div>
           </div>
         </div>
       </div>
 
       <div class="modalBottom">
-        <div class="status" id="status">
-          ✅ Plan: <strong id="chosenPlan">Cena rica 🍝</strong>
-          • ⏰ Hora: <strong id="chosenTime">6:00 pm</strong>
-        </div>
-
-        <div class="ctaRow">
-          <button class="btn" id="moreHearts">Más corazones 💖</button>
-          <button class="btn btnPrimary" id="done">Listo 💘</button>
-        </div>
+        <button class="btn" id="more">Más corazones 💖</button>
+        <button class="btn btnPrimary" id="ok">Listo 💘</button>
       </div>
     </div>
   </div>
 
   <script>
-    /* ==========================================================
-       PRELOADER (quick)
-    ========================================================== */
-    const loader = document.getElementById("loader");
-    window.addEventListener("load", () => {
-      setTimeout(() => loader.classList.add("hide"), 350);
-    });
-
-    /* ==========================================================
-       HELPERS
-    ========================================================== */
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+    const stage = document.getElementById("stage");
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
 
-    function $(id){ return document.getElementById(id); }
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("close");
+    const okBtn = document.getElementById("ok");
+    const moreBtn = document.getElementById("more");
 
-    function smoothScrollTo(el){
-      el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "center" });
-    }
-
-    async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch{
-        return false;
-      }
-    }
-
-    /* ==========================================================
-       NAV BUTTONS
-    ========================================================== */
-    $("scrollTo").addEventListener("click", () => smoothScrollTo($("questionPanel")));
-    $("openQuestion").addEventListener("click", () => smoothScrollTo($("questionPanel")));
-
-    $("copyLink").addEventListener("click", async () => {
-      const ok = await copyText(location.href);
-      $("chip").textContent = ok ? "✅ Link copiado" : "😅 No se pudo copiar";
-      setTimeout(()=> $("chip").textContent = "🔒 Modo: imposible decir “No”", 1400);
-    });
-
-    $("surprise").addEventListener("click", () => {
-      heartsBurst(18);
-      pulseTip("✨ Sorpresa desbloqueada: +corazones");
-    });
-
-    function pulseTip(text){
-      const tip = $("tip");
-      const old = tip.textContent;
-      tip.textContent = text;
-      tip.style.opacity = "1";
-      setTimeout(()=> tip.textContent = old, 1600);
-    }
-
-    /* ==========================================================
-       IMPOSSIBLE "NO" BUTTON
-       - Moves on pointerdown + touchstart + hover
-       - Prevents click/activation
-    ========================================================== */
-    const stage = $("stage");
-    const noBtn = $("no");
-    const yesBtn = $("yes");
+    const planPicker = document.getElementById("planPicker");
+    const timePicker = document.getElementById("timePicker");
+    const chosenPlan = document.getElementById("chosenPlan");
+    const chosenTime = document.getElementById("chosenTime");
 
     let dodges = 0;
 
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
     function placeNoInitial(){
       const s = stage.getBoundingClientRect();
-      // Put it a bit to the right but inside bounds
-      const x = clamp(s.width * 0.62, 10, s.width - 160);
-      const y = clamp(s.height * 0.62, 12, s.height - 70);
+      const x = clamp(s.width * 0.62, 12, s.width - 170);
+      const y = clamp(s.height * 0.70, 12, s.height - 70);
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
     }
@@ -812,7 +527,6 @@
     function moveNo(){
       const s = stage.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
-
       const pad = 12;
       const maxX = s.width - b.width - pad*2;
       const maxY = s.height - b.height - pad*2;
@@ -830,7 +544,7 @@
       if (dodges >= 12) noBtn.textContent = "😅";
     }
 
-    // Trigger before click completes
+    // IMPOSIBLE CLICK: se mueve ANTES del click (mouse + touch)
     noBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); moveNo(); });
     noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveNo(); }, { passive:false });
     noBtn.addEventListener("mouseenter", moveNo);
@@ -839,89 +553,21 @@
     window.addEventListener("resize", placeNoInitial);
     placeNoInitial();
 
-    /* ==========================================================
-       YES FLOW
-    ========================================================== */
-    const overlay = $("overlay");
-    const closeModal = $("closeModal");
-    const done = $("done");
-    const moreHearts = $("moreHearts");
-
     function openModal(){
       overlay.classList.add("open");
       overlay.setAttribute("aria-hidden","false");
     }
-    function close(){
+    function closeModal(){
       overlay.classList.remove("open");
       overlay.setAttribute("aria-hidden","true");
     }
 
-    yesBtn.addEventListener("click", () => {
-      heartsBurst(28);
-      yesBtn.disabled = true;
-      noBtn.disabled = true;
-      yesBtn.textContent = "Elegiste bien 💖";
-      openModal();
-    });
-
-    closeModal.addEventListener("click", close);
-    done.addEventListener("click", close);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
-    moreHearts.addEventListener("click", () => heartsBurst(22));
-
-    /* ==========================================================
-       PLAN + TIME PICKERS
-    ========================================================== */
-    const planPicker = $("planPicker");
-    const timePicker = $("timePicker");
-    const chosenPlan = $("chosenPlan");
-    const chosenTime = $("chosenTime");
-
-    function setActive(container, el){
-      [...container.querySelectorAll(".tag")].forEach(t => t.classList.remove("active"));
-      el.classList.add("active");
-    }
-
-    planPicker.addEventListener("click", (e) => {
-      const tag = e.target.closest(".tag");
-      if(!tag) return;
-      setActive(planPicker, tag);
-      chosenPlan.textContent = tag.dataset.plan;
-    });
-
-    timePicker.addEventListener("click", (e) => {
-      const tag = e.target.closest(".tag");
-      if(!tag) return;
-      setActive(timePicker, tag);
-      chosenTime.textContent = tag.dataset.time;
-    });
-
-    /* ==========================================================
-       COPY MESSAGE + PAGE
-    ========================================================== */
-    $("copyPage").addEventListener("click", async () => {
-      const ok = await copyText(location.href);
-      pulseTip(ok ? "✅ Link copiado" : "😅 No se pudo copiar");
-    });
-
-    $("copyMessage").addEventListener("click", async () => {
-      const plan = chosenPlan.textContent;
-      const time = chosenTime.textContent;
-      const msg = `💘 Aceptaste ser mi 14 de febrero 🥰\n\nPlan: ${plan}\nHora: ${time}\n\nTe espero 💖`;
-      const ok = await copyText(msg);
-      pulseTip(ok ? "💌 Mensaje copiado" : "😅 No se pudo copiar");
-    });
-
-    /* ==========================================================
-       HEART CONFETTI
-    ========================================================== */
-    function heartsBurst(amount = 20){
+    function heartsBurst(amount = 22){
       if (prefersReduced) return;
-
       for (let i=0; i<amount; i++){
         const el = document.createElement("div");
         el.className = "heart";
-        el.textContent = Math.random() < .7 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
+        el.textContent = Math.random() < .75 ? "💖" : "💘";
         el.style.left = (Math.random() * 100) + "vw";
         el.style.fontSize = (14 + Math.random() * 24) + "px";
         el.style.opacity = "1";
@@ -941,6 +587,38 @@
         setTimeout(()=> el.remove(), dur + 50);
       }
     }
+
+    yesBtn.addEventListener("click", () => {
+      heartsBurst(30);
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+      yesBtn.textContent = "💘";
+      openModal();
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+    okBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
+    moreBtn.addEventListener("click", () => heartsBurst(24));
+
+    function setActive(container, el){
+      [...container.querySelectorAll(".tag")].forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    planPicker.addEventListener("click", (e) => {
+      const tag = e.target.closest(".tag");
+      if(!tag) return;
+      setActive(planPicker, tag);
+      chosenPlan.textContent = tag.dataset.plan;
+    });
+
+    timePicker.addEventListener("click", (e) => {
+      const tag = e.target.closest(".tag");
+      if(!tag) return;
+      setActive(timePicker, tag);
+      chosenTime.textContent = tag.dataset.time;
+    });
   </script>
 </body>
 </html>
