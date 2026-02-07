@@ -14,13 +14,17 @@
       --rose:#e1174f;
       --rose2:#ff2d6b;
       --ink:#2a1f24;
+
       --shadow: 0 26px 70px rgba(0,0,0,.18);
       --shadow2: 0 16px 40px rgba(0,0,0,.12);
+
       --r: 22px;
       --ease: cubic-bezier(.2,.8,.2,1);
       --ease2: cubic-bezier(.2,.7,.2,1);
+
       --serif: ui-serif, "Times New Roman", Times, Georgia, serif;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+
       --line: rgba(225,23,79,.65);
       --line2: rgba(225,23,79,.28);
     }
@@ -69,23 +73,23 @@
       100% { transform: translate3d( 2%,  2%, 0) rotate(1deg); }
     }
 
+    /* Pétalos (visibles) */
     .petals{
       position: fixed; inset:-10%;
       z-index:-3;
       pointer-events:none;
-      opacity:1;
     }
     .petal{
       position:absolute;
       width: 14px; height: 14px;
       border-radius: 6px 14px 6px 14px;
       background: rgba(225,23,79,.30);
-      filter: blur(.12px);
+      filter: blur(.10px);
       box-shadow: 0 10px 22px rgba(225,23,79,.10);
       animation: fall linear infinite;
       transform: rotate(15deg);
     }
-    .petal.white{ background: rgba(255,255,255,.70); }
+    .petal.white{ background: rgba(255,255,255,.72); }
     .petal.soft { background: rgba(255,45,107,.18); }
     @keyframes fall{
       0%   { transform: translate3d(var(--x), -140px, 0) rotate(0deg); opacity:0; }
@@ -169,7 +173,7 @@
       box-shadow: var(--shadow2);
       padding: 18px 16px 16px;
       z-index: 2;
-      transition: transform .75s var(--ease), top .75s var(--ease), opacity .6s var(--ease);
+      transition: transform .75s var(--ease), top .75s var(--ease);
     }
     .letter::before{
       content:"";
@@ -205,10 +209,8 @@
       background: transparent;
       z-index: 6;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.18));
-      transition: transform .15s var(--ease);
       -webkit-tap-highlight-color: transparent;
     }
-    .heartBtn:active{ transform: translateX(-50%) scale(.97); }
     .heart{
       width: 100%;
       height: 100%;
@@ -247,17 +249,6 @@
       box-shadow: var(--shadow2);
       z-index: 3;
       overflow:hidden;
-    }
-    .envelope::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(220px 120px at 30% 20%, rgba(255,255,255,.25), transparent 60%),
-        radial-gradient(220px 120px at 70% 35%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.06));
-      opacity:.65;
-      pointer-events:none;
     }
     .flapTop{
       position:absolute;
@@ -311,8 +302,7 @@
       width: 64px;
       height: 64px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
-                  linear-gradient(135deg, #ff2d55, #ff7a98);
+      background: linear-gradient(135deg, #ff2d55, #ff7a98);
       box-shadow: 0 14px 30px rgba(255,45,85,.25);
       display:grid;
       place-items:center;
@@ -325,7 +315,6 @@
       font-weight: 900;
       font-size: 12px;
       letter-spacing: .03em;
-      text-shadow: 0 8px 18px rgba(0,0,0,.22);
       user-select:none;
     }
 
@@ -334,6 +323,7 @@
       top: 6px;
       transform: translateX(-50%) translateY(-18px);
     }
+
     .introHint{
       margin-top: 14px;
       display:inline-flex;
@@ -388,12 +378,10 @@
       overflow:auto;
       -webkit-overflow-scrolling: touch;
       opacity:0;
-      transform: translate3d(14px, 0, 0);
       pointer-events:none;
     }
     .page.active{
       opacity:1;
-      transform: translate3d(0,0,0);
       pointer-events:auto;
     }
 
@@ -582,12 +570,6 @@
       text-align:center;
       position:relative;
     }
-    .ticket .stub::after{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%);
-      opacity:.8;
-    }
     .ticket .body{
       flex:1;
       padding: 12px;
@@ -612,7 +594,10 @@
     }
 
     /* =========================
-       PAGE 2: MATRIZ PRO 3x3
+       PAGE 2: MATRIZ PRO (3x3, incluye 2)
+       Layout: 1 / ♥ / 3
+               ♥ / 2 / ♥
+               4 / ♥ / 5
     ========================== */
     .reasonsHead{
       text-align:center;
@@ -625,7 +610,7 @@
       letter-spacing: -0.02em;
       line-height: 1;
     }
-    .reasonsTitle .n{ font-size: 58px; }
+    .reasonsTitle .n{ font-size: 58px; } /* ahora "5" */
     .reasonsTitle .t{ font-size: 30px; }
     .reasonsScript{
       margin-top: 6px;
@@ -708,7 +693,13 @@
       color: rgba(225,23,79,.92);
       filter: drop-shadow(0 10px 18px rgba(225,23,79,.14));
       opacity:.95;
+      animation: floatH 2.2s var(--ease2) infinite alternate;
     }
+    @keyframes floatH{
+      from{ transform: translateY(0) scale(1); }
+      to  { transform: translateY(-4px) scale(1.03); }
+    }
+
     .cell9.center{
       background: radial-gradient(180px 120px at 50% 45%, rgba(225,23,79,.12), transparent 70%);
     }
@@ -766,7 +757,7 @@
     }
 
     /* =========================
-       PAGE 3: PREGUNTA + NO IMPOSIBLE
+       PAGE 3: PREGUNTA + NO PRO
     ========================== */
     .grand{
       text-align:center;
@@ -818,6 +809,7 @@
       overflow:hidden;
       display:grid;
       place-items:center;
+      touch-action: manipulation;
     }
 
     .choice{
@@ -833,34 +825,33 @@
       box-shadow: 0 14px 28px rgba(0,0,0,.08);
       cursor:pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: transform .12s var(--ease), filter .2s var(--ease);
       user-select:none;
     }
-    .choice:active{ transform: scale(.985); }
+    .choice:active{ transform: translate(var(--tx), var(--ty)) scale(.985); }
 
-    .choice.yes{ z-index: 5; } /* FIX: Sí siempre arriba */
-    .choice.no{ z-index: 4; }
-
-    .yes{
+    .choice.yes{
+      z-index: 6;
       left: 50%;
       top: 50%;
+      --tx: -112%;
+      --ty: -50%;
       transform: translate(-112%, -50%);
     }
-    .yes:hover{ filter: brightness(1.02); }
-
-    .no{
-      left: 50%;
-      top: 50%;
-      transform: translate(12%, -50%);
+    .choice.no{
+      z-index: 5;
       border: 0;
       background: rgba(20,20,25,.78);
       color: rgba(255,255,255,.94);
       box-shadow: 0 14px 28px rgba(0,0,0,.12);
       min-width: 120px;
+      left: 50%;
+      top: 50%;
+      transform: translate(12%, -50%);
+      will-change: left, top, transform;
     }
 
     /* =========================
-       PAGE 4: FINAL + EFECTO ROMÁNTICO
+       PAGE 4: FINAL ROMÁNTICO
     ========================== */
     .final{
       height: calc(100% - 0px);
@@ -904,7 +895,6 @@
       position:relative;
       box-shadow: 0 18px 40px rgba(0,0,0,.18);
       overflow:hidden;
-      transform: translateZ(0);
     }
     .lace::before{
       content:"";
@@ -1013,6 +1003,13 @@
     }
     .nav button:active{ transform: scale(.985); }
     .nav button[disabled]{ opacity:.40; cursor:not-allowed; }
+
+    /* ocultar con suavidad */
+    .nav button.hidden{
+      opacity:0;
+      pointer-events:none;
+      transform: translateY(6px);
+    }
   </style>
 </head>
 
@@ -1136,7 +1133,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 2 -->
+        <!-- PAGE 2 (Matriz) -->
         <section class="page" data-page="1" aria-label="Razones">
           <div class="topline">
             <span>Edición especial</span>
@@ -1147,12 +1144,13 @@ y momentos que se queden grabados.
 
           <div class="reasonsHead">
             <div class="reasonsTitle">
-              <span class="n">05</span>
+              <span class="n">5</span>
               <span class="t"> Razones</span>
             </div>
             <div class="reasonsScript">por las que eres mi elección perfecta</div>
           </div>
 
+          <!-- 3x3 (con el 2 al centro) -->
           <div class="grid9" aria-label="Matriz de razones">
             <div class="cell9">
               <div class="cellNum">1</div>
@@ -1165,7 +1163,11 @@ y momentos que se queden grabados.
             </div>
 
             <div class="cell9 heartOnly"><div class="bigHeart">❤</div></div>
-            <div class="cell9 center"><div class="centerHeart">❤</div></div>
+            <div class="cell9 center">
+              <div class="cellNum">2</div>
+              <div class="cellTxt">Haces que mi corazón lata más rápido cada vez que te pienso.</div>
+              <div class="centerHeart" aria-hidden="true">❤</div>
+            </div>
             <div class="cell9 heartOnly"><div class="bigHeart">❤</div></div>
 
             <div class="cell9">
@@ -1194,7 +1196,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 3 -->
+        <!-- PAGE 3 (Pregunta) -->
         <section class="page" data-page="2" aria-label="La gran pregunta">
           <div class="topline">
             <span>Edición especial</span>
@@ -1223,14 +1225,14 @@ y una sonrisa nerviosa:
           <div class="ask">Elige tu respuesta:</div>
 
           <div class="btnStage" id="btnStage">
-            <button class="choice yes" id="yesBtn">SÍ 💖</button>
-            <button class="choice no" id="noBtn" aria-label="No (imposible)">NO 🙈</button>
+            <button class="choice yes" id="yesBtn" type="button">SÍ 💖</button>
+            <button class="choice no" id="noBtn" type="button" aria-label="No (imposible)">NO 🙈</button>
           </div>
 
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 4 -->
+        <!-- PAGE 4 (Final) -->
         <section class="page" data-page="3" aria-label="Confirmado" id="finalPage">
           <div class="final">
             <div class="finalCard" id="finalCard">
@@ -1261,14 +1263,15 @@ y recuerdos que se van a quedar.
       </div>
 
       <div class="nav" aria-label="Navegación">
-        <button id="prev">PAG. ANTERIOR</button>
-        <button id="next">PAG. SIGUIENTE</button>
+        <button id="prev" type="button">PAG. ANTERIOR</button>
+        <button id="next" type="button">PAG. SIGUIENTE</button>
       </div>
     </div>
   </div>
 
   <script>
     /* ========= UTIL ========= */
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function rand(min, max){ return Math.random() * (max - min) + min; }
     function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
 
@@ -1311,7 +1314,7 @@ y recuerdos que se van a quedar.
       setTimeout(() => show(0, "right"), 900);
     });
 
-    /* ========= PÁGINAS ========= */
+    /* ========= PÁGINAS + NAV ========= */
     const pages = [...document.querySelectorAll(".page")];
     const prev = document.getElementById("prev");
     const next = document.getElementById("next");
@@ -1319,6 +1322,19 @@ y recuerdos que se van a quedar.
 
     function clearAnim(p){
       p.classList.remove("anim-in-right","anim-out-left","anim-in-left","anim-out-right");
+    }
+
+    function updateNav(){
+      prev.disabled = current === 0;
+
+      // Ocultar "SIGUIENTE" en la penúltima página (la de la pregunta = index 2)
+      if(current === 2){
+        next.classList.add("hidden");
+        next.disabled = true;
+      }else{
+        next.classList.remove("hidden");
+        next.disabled = current === pages.length - 1;
+      }
     }
 
     function show(i, dir="right"){
@@ -1344,19 +1360,18 @@ y recuerdos que se van a quedar.
         pages.forEach((p, idx) => p.classList.toggle("active", idx === target));
         clearAnim(out); clearAnim(inc);
         current = target;
-        prev.disabled = current === 0;
-        next.disabled = current === pages.length - 1;
         pages[current].scrollTop = 0;
 
+        updateNav();
         if(current === 3) romanticFinal();
       }, 420);
     }
 
     prev.addEventListener("click", () => show(current - 1, "left"));
     next.addEventListener("click", () => show(current + 1, "right"));
-    prev.disabled = true;
+    updateNav();
 
-    // swipe móvil
+    // swipe móvil (sigue funcionando)
     let startX = null;
     document.querySelector(".mag").addEventListener("touchstart", (e)=>{
       if(e.touches.length === 1) startX = e.touches[0].clientX;
@@ -1371,35 +1386,90 @@ y recuerdos que se van a quedar.
       else show(current - 1, "left");
     }, {passive:true});
 
-    /* ========= NO IMPOSIBLE (solo mitad derecha) ========= */
+    /* ========= NO PRO (rebote suave + siempre mitad derecha) ========= */
     const btnStage = document.getElementById("btnStage");
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
+
     let dodges = 0;
+    let animatingNo = false;
 
-    function placeNoInitial(){
-      const s = btnStage.getBoundingClientRect();
-      const x = clamp(s.width * 0.62, 12, s.width - 150);
-      const y = clamp(s.height * 0.50, 12, s.height - 52);
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
-    }
+    // Posición actual del NO (en px)
+    let noX = 0;
+    let noY = 0;
 
-    function moveNo(){
+    function stageLimits(){
       const s = btnStage.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
       const pad = 12;
 
-      // SOLO la mitad derecha
-      const leftLimit = s.width * 0.55;
-      const rightLimit = s.width - b.width - pad;
-      const x = clamp(leftLimit + Math.random() * (rightLimit - leftLimit), leftLimit, rightLimit);
+      // mitad derecha (sin cruzarse con el Sí)
+      const minX = s.width * 0.56;
+      const maxX = s.width - b.width - pad;
 
-      const maxY = s.height - b.height - pad*2;
-      const y = pad + Math.random() * maxY;
+      const minY = pad;
+      const maxY = s.height - b.height - pad;
 
+      return { s, b, pad, minX, maxX, minY, maxY };
+    }
+
+    function setNoPos(x, y){
+      noX = x; noY = y;
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
+    }
+
+    function placeNoInitial(){
+      const { s, minX, maxX, minY, maxY } = stageLimits();
+      const x = clamp(s.width * 0.66, minX, maxX);
+      const y = clamp(s.height * 0.50, minY, maxY);
+      setNoPos(x, y);
+    }
+
+    // animación spring (simple y suave)
+    function springTo(targetX, targetY){
+      if(prefersReduced){ setNoPos(targetX, targetY); return; }
+      if(animatingNo) return;
+      animatingNo = true;
+
+      let vx = 0, vy = 0;
+      const stiffness = 0.14;  // “resorte”
+      const damping = 0.78;    // amortiguación
+      const snap = 0.6;
+
+      function step(){
+        const dx = targetX - noX;
+        const dy = targetY - noY;
+
+        vx = (vx + dx * stiffness) * damping;
+        vy = (vy + dy * stiffness) * damping;
+
+        noX += vx;
+        noY += vy;
+
+        // micro-rotación pro
+        const rot = clamp(vx * 0.25, -10, 10);
+        noBtn.style.transform = `translate(0,0) rotate(${rot}deg)`;
+
+        noBtn.style.left = noX + "px";
+        noBtn.style.top  = noY + "px";
+
+        if(Math.abs(dx) < snap && Math.abs(dy) < snap && Math.abs(vx) < 0.4 && Math.abs(vy) < 0.4){
+          // termina
+          noBtn.style.transform = `translate(0,0) rotate(0deg)`;
+          animatingNo = false;
+          return;
+        }
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function dodgeNo(){
+      const { minX, maxX, minY, maxY } = stageLimits();
+      const tx = rand(minX, maxX);
+      const ty = rand(minY, maxY);
+      springTo(tx, ty);
 
       dodges++;
       if(dodges === 3) noBtn.textContent = "¿Eh? 😳";
@@ -1408,49 +1478,55 @@ y recuerdos que se van a quedar.
       if(dodges >= 12) noBtn.textContent = "😅";
     }
 
-    noBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); moveNo(); });
-    noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); moveNo(); }, {passive:false});
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("focus", moveNo);
+    // mueve ANTES del click (imposible tocarlo)
+    noBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); e.stopPropagation(); dodgeNo(); });
+    noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); e.stopPropagation(); dodgeNo(); }, {passive:false});
+    noBtn.addEventListener("mouseenter", dodgeNo);
+    noBtn.addEventListener("focus", dodgeNo);
 
     window.addEventListener("resize", placeNoInitial);
     placeNoInitial();
 
-    /* ========= SÍ: pasar solo a final ========= */
-    yesBtn.addEventListener("click", () => {
+    /* ========= SÍ: SIEMPRE pasa al final ========= */
+    function goFinal(){
       heartsBurst(26);
       show(3, "right");
-    });
+    }
+
+    // click normal
+    yesBtn.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); goFinal(); });
+    // para móviles donde a veces el click no dispara bien
+    yesBtn.addEventListener("pointerup", (e)=>{ e.preventDefault(); e.stopPropagation(); goFinal(); });
 
     /* ========= EFECTO ROMÁNTICO FINAL ========= */
     function romanticFinal(){
       const finalCard = document.getElementById("finalCard");
       finalCard.classList.add("finalOn");
-      heartsBurst(42);
+      heartsBurst(48);
 
       const lace = finalCard.querySelector(".lace");
-      lace.animate(
-        [{transform:"scale(1)"},{transform:"scale(1.02)"},{transform:"scale(1)"}],
-        {duration: 1200, easing:"cubic-bezier(.2,.7,.2,1)"}
-      );
+      if(!prefersReduced){
+        lace.animate(
+          [{transform:"scale(1)"},{transform:"scale(1.03)"},{transform:"scale(1)"}],
+          {duration: 1200, easing:"cubic-bezier(.2,.7,.2,1)"}
+        );
+      }
     }
 
     /* ========= CORAZONES / BRILLOS ========= */
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     function heartsBurst(amount = 20){
       if(prefersReduced) return;
 
       for (let i=0; i<amount; i++){
         const el = document.createElement("div");
         el.className = "heartFX";
-        el.textContent = Math.random() < .7 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
+        el.textContent = Math.random() < .72 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
         el.style.left = (Math.random() * 100) + "vw";
-        el.style.fontSize = (14 + Math.random() * 26) + "px";
+        el.style.fontSize = (14 + Math.random() * 28) + "px";
         el.style.opacity = "1";
 
-        const drift = (Math.random()*2 - 1) * 240;
-        const rotate = (Math.random()*2 - 1) * 420;
+        const drift = (Math.random()*2 - 1) * 260;
+        const rotate = (Math.random()*2 - 1) * 520;
         const fall = 110 + Math.random() * 30;
         const dur = 1200 + Math.random() * 900;
 
@@ -1461,7 +1537,7 @@ y recuerdos que se van a quedar.
           { transform: `translate3d(${drift}px, ${fall}vh, 0) rotate(${rotate}deg)`, opacity: 0 }
         ], { duration: dur, easing: "cubic-bezier(.2,.7,.2,1)" });
 
-        setTimeout(()=> el.remove(), dur + 60);
+        setTimeout(()=> el.remove(), dur + 80);
       }
     }
   </script>
