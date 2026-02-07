@@ -26,6 +26,9 @@
       --serif: ui-serif, "Times New Roman", Times, Georgia, serif;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
 
+      /* script “linda” sin descargar fuentes */
+      --script: "Brush Script MT","Segoe Script","Lucida Handwriting","Apple Chancery","Snell Roundhand",cursive;
+
       --line: rgba(225,23,79,.65);
       --line2: rgba(225,23,79,.28);
     }
@@ -603,151 +606,199 @@
     }
 
     /* =========================
-       ✅ PAGE 2 (RECUPERADA) · MATRIZ BONITA + ANIMADA
+       PAGE 2 · MATRIZ IDÉNTICA (3x3 con líneas + corazones)
     ========================== */
-    .reasonsTitle{
+    .p2Header{
       text-align:center;
-      margin: 10px 0 6px;
+      margin: 8px 0 10px;
+      padding: 0 6px;
+    }
+    .p2Header .t1{
       font-family: var(--serif);
-      color: rgba(225,23,79,.95);
       font-weight: 900;
-      font-size: 44px;
+      color: rgba(225,23,79,.95);
+      font-size: 52px;
+      line-height: 1;
       letter-spacing: -0.02em;
-      line-height: 1.02;
     }
-    .reasonsSubtitle{
-      text-align:center;
-      margin: 0 0 14px;
+    .p2Header .t1 .num{
+      font-variant-numeric: tabular-nums;
+    }
+    .p2Header .t2{
       font-family: var(--serif);
-      font-style: italic;
-      color: rgba(42,31,36,.72);
-      letter-spacing: .01em;
+      font-weight: 900;
+      color: rgba(225,23,79,.95);
+      font-size: 34px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-top: 2px;
+    }
+    .p2Header .t3{
+      font-family: var(--script);
+      font-weight: 900;
+      color: rgba(225,23,79,.78);
+      font-size: 46px;
+      line-height: 1.05;
+      margin-top: -2px;
+      letter-spacing: -0.01em;
     }
 
-    .reasonsGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      align-items:stretch;
-    }
-    @media (max-width: 520px){
-      .reasonsGrid{ grid-template-columns: repeat(2, 1fr); }
-    }
-
-    .reasonCard{
-      position:relative;
+    .matrixWrap{
+      margin-top: 6px;
       border-radius: 18px;
-      background: rgba(255,255,255,.60);
-      border: 1px solid rgba(225,23,79,.22);
-      box-shadow: 0 12px 24px rgba(0,0,0,.06);
-      padding: 14px 12px 12px;
+      background:
+        radial-gradient(900px 420px at 50% 25%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+      border: 1px solid rgba(225,23,79,.18);
+      padding: 10px 10px 12px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+      position:relative;
       overflow:hidden;
-      transform: translateY(10px);
-      opacity: 0;
-      animation: reasonIn .55s var(--ease) forwards;
     }
-    .reasonCard::before{
+
+    /* “chispitas” suaves */
+    .matrixWrap::before{
       content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(220px 160px at 20% 15%, rgba(225,23,79,.10), transparent 60%);
-      opacity:.9;
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(2px 2px at 10% 30%, rgba(255,255,255,.85), transparent 60%),
+        radial-gradient(2px 2px at 30% 55%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(2px 2px at 70% 25%, rgba(255,255,255,.85), transparent 60%),
+        radial-gradient(2px 2px at 85% 60%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(2px 2px at 55% 78%, rgba(255,255,255,.70), transparent 60%);
+      opacity:.55;
+      animation: twinkle 3.2s var(--ease2) infinite alternate;
       pointer-events:none;
     }
-    .reasonCard:nth-child(1){ animation-delay: .02s; }
-    .reasonCard:nth-child(2){ animation-delay: .08s; }
-    .reasonCard:nth-child(3){ animation-delay: .14s; }
-    .reasonCard:nth-child(4){ animation-delay: .20s; }
-    .reasonCard:nth-child(5){ animation-delay: .26s; }
-
-    @keyframes reasonIn{
-      to{ transform: translateY(0); opacity:1; }
+    @keyframes twinkle{
+      from{ transform: translate3d(-1.5%, -1%, 0) scale(1); opacity:.45; }
+      to  { transform: translate3d( 1.5%,  1%, 0) scale(1.02); opacity:.65; }
     }
 
-    .reasonNum{
-      position:absolute;
-      top: 10px;
-      left: 12px;
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
+    .matrix{
+      position:relative;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0;
+      border-radius: 14px;
+      overflow:hidden;
+      min-height: 470px;
+    }
+    @media (max-width:520px){
+      .matrix{ min-height: 520px; }
+    }
+
+    .cell{
+      position:relative;
       display:grid;
       place-items:center;
-      font-family: var(--serif);
-      font-weight: 900;
-      color: rgba(255,255,255,.95);
-      background: linear-gradient(135deg, rgba(225,23,79,.95), rgba(255,45,107,.88));
-      box-shadow: 0 12px 24px rgba(225,23,79,.18);
+      padding: 14px 10px;
+      background: rgba(255,255,255,.08);
     }
 
-    .reasonText{
-      margin-top: 26px;
+    /* líneas como la imagen */
+    .cell{ border: 1px solid rgba(225,23,79,.55); }
+    .cell.r1{ border-top: 0; }
+    .cell.r3{ border-bottom: 0; }
+    .cell.c1{ border-left: 0; }
+    .cell.c3{ border-right: 0; }
+
+    .reasonBlock{
+      width: 100%;
+      max-width: 240px;
+      text-align:center;
       font-family: var(--serif);
-      font-size: 15px;
-      line-height: 1.45;
-      color: rgba(42,31,36,.80);
+      color: rgba(225,23,79,.92);
+      line-height: 1.35;
+      font-size: 16px;
       white-space: pre-line;
-      text-align:center;
-      padding: 0 4px;
-      min-height: 3.6em;
+      position:relative;
+      z-index:2;
     }
-
-    .reasonHeart{
-      margin-top: 10px;
-      text-align:center;
-      font-size: 20px;
-      animation: reasonPulse 1.4s var(--ease) infinite;
-      filter: drop-shadow(0 10px 12px rgba(0,0,0,.10));
-    }
-    @keyframes reasonPulse{
-      0%,100%{ transform: scale(1); }
-      50%{ transform: scale(1.16); }
-    }
-
-    .signals{
-      margin-top: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.42);
-      border: 1px solid rgba(225,23,79,.16);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.40);
-      padding: 14px 12px 12px;
-    }
-    .signalsTitle{
-      text-align:center;
-      font-family: var(--serif);
+    .reasonBlock .n{
+      position:absolute;
+      top: -10px;
+      left: -6px;
+      font-size: 34px;
       font-weight: 900;
       color: rgba(225,23,79,.95);
-      font-size: 24px;
-      letter-spacing: -0.01em;
-      margin: 0 0 10px;
+      transform: rotate(-2deg);
+      text-shadow: 0 10px 18px rgba(0,0,0,.08);
     }
-    .signalsGrid{
+    .reasonBlock .txt{
+      display:block;
+      padding-top: 18px;
+    }
+
+    .bigHeart{
+      font-size: 56px;
+      line-height: 1;
+      filter: drop-shadow(0 16px 20px rgba(225,23,79,.18));
+      animation: heartFloat 2.3s var(--ease2) infinite alternate;
+      user-select:none;
+      z-index:2;
+    }
+    @keyframes heartFloat{
+      from{ transform: translateY(3px) scale(1); }
+      to  { transform: translateY(-3px) scale(1.03); }
+    }
+
+    /* SEÑALES: estilo como imagen */
+    .signals2{
+      margin-top: 14px;
+      text-align:center;
+      padding: 6px 2px 0;
+    }
+    .signals2 .k{
+      font-family: var(--serif);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: rgba(42,31,36,.55);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .signals2 .big{
+      font-family: var(--serif);
+      font-weight: 1000;
+      color: rgba(225,23,79,.95);
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .signals2 .sub{
+      font-family: var(--serif);
+      color: rgba(42,31,36,.65);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .signalsGrid2{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
-    @media (max-width: 520px){
-      .signalsGrid{ grid-template-columns: 1fr; }
+    @media (max-width:520px){
+      .signalsGrid2{ grid-template-columns: 1fr; }
     }
-    .signalCard{
-      border-radius: 16px;
-      padding: 12px 12px;
-      background: linear-gradient(135deg, rgba(225,23,79,.95), rgba(255,45,107,.86));
-      color: rgba(255,255,255,.95);
+    .signalBox{
+      border-radius: 14px;
+      background: rgba(225,23,79,.96);
+      color: rgba(255,255,255,.96);
       font-family: var(--serif);
+      padding: 14px 12px;
       font-size: 14px;
       line-height: 1.35;
-      text-align:center;
-      box-shadow: 0 14px 30px rgba(225,23,79,.22);
-      transform: scale(.98);
-      opacity: 0;
-      animation: signalPop .55s var(--ease) forwards;
+      box-shadow: 0 16px 34px rgba(225,23,79,.20);
+      transform: translateY(8px);
+      opacity:0;
+      animation: sigIn .55s var(--ease) forwards;
     }
-    .signalCard:nth-child(1){ animation-delay: .06s; }
-    .signalCard:nth-child(2){ animation-delay: .12s; }
-    .signalCard:nth-child(3){ animation-delay: .18s; }
-
-    @keyframes signalPop{
-      to{ transform: scale(1); opacity: 1; }
+    .signalBox:nth-child(1){ animation-delay:.05s; }
+    .signalBox:nth-child(2){ animation-delay:.11s; }
+    .signalBox:nth-child(3){ animation-delay:.17s; }
+    @keyframes sigIn{
+      to{ transform: translateY(0); opacity:1; }
     }
 
     /* PAGE 3 */
@@ -943,12 +994,32 @@
       100%{ opacity:1; transform: scale(1.02); }
     }
 
-    .heartFX{
+    /* =========================
+       CORAZONES PRO (más profesional)
+    ========================== */
+    .heartFXPro{
       position: fixed;
-      z-index: 60;
+      z-index: 80;
       pointer-events:none;
       will-change: transform, opacity;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,.25));
+      animation: flyPro var(--dur) var(--ease) forwards;
+      opacity: 0;
+      transform: translate3d(0,0,0) rotate(0deg) scale(1);
+    }
+    @keyframes flyPro{
+      0%{
+        opacity:0;
+        transform: translate3d(0,0,0) rotate(0deg) scale(.85);
+      }
+      12%{
+        opacity:1;
+        transform: translate3d(0,-10px,0) rotate(0deg) scale(1);
+      }
+      100%{
+        opacity:0;
+        transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)) scale(.95);
+      }
     }
 
     .miniFooter{
@@ -991,41 +1062,19 @@
     }
     .nav button:active{ transform: scale(.985); }
     .nav button[disabled]{ opacity:.40; cursor:not-allowed; }
-
     .nav button.hidden{
       opacity:0;
       pointer-events:none;
       transform: translateY(6px);
     }
-
-    /* MUSIC BTN */
-    .musicBtn{
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 120;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.75);
-      background: rgba(255,255,255,.62);
-      color: rgba(42,31,36,.86);
-      font-weight: 900;
-      padding: 10px 12px;
-      cursor:pointer;
-      box-shadow: 0 12px 24px rgba(0,0,0,.10);
-      backdrop-filter: blur(8px);
-      display:none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .musicBtn.show{ display:block; }
   </style>
 </head>
 
 <body>
-  <!-- ✅ AUDIO: tu archivo real (con espacios) -->
+  <!-- ✅ AUDIO: (sin botón, suena al tocar el corazón) -->
   <audio id="bgMusic" preload="auto" loop>
     <source src="Stuck%20with%20you.mp3" type="audio/mpeg">
   </audio>
-  <button class="musicBtn" id="musicBtn" type="button">🎵 Toca para música</button>
 
   <div class="bg-aurora"></div>
   <div class="bg-grain"></div>
@@ -1114,7 +1163,6 @@ y momentos que se queden grabados.
 
             <div class="photo">
               <div class="frame" aria-label="Foto de nosotros">
-                <!-- ✅ FOTO: tu archivo real -->
                 <img src="foto.jpg.jpeg" alt="Nuestra foto">
               </div>
               <div class="overlayBtn">¿Aceptas la misión de ser mi San Valentín?</div>
@@ -1141,7 +1189,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- ✅ PAGE 2 (MATRIZ RECUPERADA) -->
+        <!-- PAGE 2 (MATRIZ IDÉNTICA) -->
         <section class="page" data-page="1" aria-label="Razones">
           <div class="topline">
             <span>Edición especial</span>
@@ -1150,47 +1198,73 @@ y momentos que se queden grabados.
           </div>
           <div class="rule"></div>
 
-          <div class="reasonsTitle">5 razones</div>
-          <div class="reasonsSubtitle">por las que eres mi elección perfecta</div>
+          <div class="p2Header">
+            <div class="t1"><span class="num">5</span> Razones</div>
+            <div class="t2">por las que eres</div>
+            <div class="t3">Mi elección perfecta</div>
+          </div>
 
-          <div class="reasonsGrid">
-            <div class="reasonCard">
-              <div class="reasonNum">1</div>
-              <div class="reasonText">Tu sonrisa me arregla el día.</div>
-              <div class="reasonHeart">💖</div>
-            </div>
+          <div class="matrixWrap">
+            <div class="matrix" aria-label="Matriz de 5 razones">
+              <!-- row 1 -->
+              <div class="cell r1 c1">
+                <div class="reasonBlock">
+                  <div class="n">1</div>
+                  <span class="txt">Tienes la sonrisa<br>más linda<br>del universo.</span>
+                </div>
+              </div>
+              <div class="cell r1 c2">
+                <div class="bigHeart">❤️</div>
+              </div>
+              <div class="cell r1 c3">
+                <div class="reasonBlock">
+                  <div class="n">3</div>
+                  <span class="txt">Contigo,<br>cualquier día se<br>siente especial.</span>
+                </div>
+              </div>
 
-            <div class="reasonCard">
-              <div class="reasonNum">2</div>
-              <div class="reasonText">Contigo, todo se siente más bonito.</div>
-              <div class="reasonHeart">💘</div>
-            </div>
+              <!-- row 2 -->
+              <div class="cell r2 c1">
+                <div class="bigHeart">❤️</div>
+              </div>
+              <div class="cell r2 c2">
+                <div class="reasonBlock">
+                  <div class="n">2</div>
+                  <span class="txt">Haces que mi<br>corazón lata<br>más rápido<br>cada vez que<br>te pienso</span>
+                </div>
+              </div>
+              <div class="cell r2 c3">
+                <div class="bigHeart">❤️</div>
+              </div>
 
-            <div class="reasonCard">
-              <div class="reasonNum">3</div>
-              <div class="reasonText">Me haces reír cuando más lo necesito.</div>
-              <div class="reasonHeart">✨</div>
-            </div>
-
-            <div class="reasonCard">
-              <div class="reasonNum">4</div>
-              <div class="reasonText">Me encanta cómo eres… en serio.</div>
-              <div class="reasonHeart">💞</div>
-            </div>
-
-            <div class="reasonCard">
-              <div class="reasonNum">5</div>
-              <div class="reasonText">Este San Valentín, te elijo a ti.</div>
-              <div class="reasonHeart">💗</div>
+              <!-- row 3 -->
+              <div class="cell r3 c1">
+                <div class="reasonBlock">
+                  <div class="n">4</div>
+                  <span class="txt">Eres mi<br>persona<br>favorita<br>para<br>compartir<br>momentos.</span>
+                </div>
+              </div>
+              <div class="cell r3 c2">
+                <div class="bigHeart">❤️</div>
+              </div>
+              <div class="cell r3 c3">
+                <div class="reasonBlock">
+                  <div class="n">5</div>
+                  <span class="txt">No imagino<br>a nadie<br>más a mi<br>lado en<br>este San<br>Valentín</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="signals">
-            <div class="signalsTitle">Señales de que debes decir “Sí”</div>
-            <div class="signalsGrid">
-              <div class="signalCard">Si sonreíste leyendo esto… ya sabes la respuesta. 😌</div>
-              <div class="signalCard">Si te gusta el romance… esto es una invitación oficial. 💌</div>
-              <div class="signalCard">Si tu corazón hizo “tin” … es destino. 💘</div>
+          <div class="signals2">
+            <div class="k">SEÑALES DE QUE</div>
+            <div class="big">Debes decir “Sí”</div>
+            <div class="sub">Estudios recientes han demostrado que:</div>
+
+            <div class="signalsGrid2">
+              <div class="signalBox">Si estás leyendo esto, significa que el destino nos ha unido.</div>
+              <div class="signalBox">Si has sonreído al menos una vez, es una señal obvia.</div>
+              <div class="signalBox">Si te gusta el romance, somos un match perfecto.</div>
             </div>
           </div>
 
@@ -1276,40 +1350,23 @@ y recuerdos que se van a quedar.
     function rand(min, max){ return Math.random() * (max - min) + min; }
     function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
 
-    /* ========= MÚSICA (autoplay best-effort) ========= */
+    /* ========= MÚSICA (sin botón: se intenta al tocar el corazón) ========= */
     const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
     const introHint = document.getElementById("introHint");
     let musicOn = false;
 
     async function tryPlayMusic(){
       if(!bgMusic || musicOn) return;
       try{
-        bgMusic.volume = 0.6;
+        bgMusic.volume = 0.65;
         await bgMusic.play();
         musicOn = true;
-        if(musicBtn) musicBtn.classList.remove("show");
         if(introHint) introHint.textContent = "🎵 Música activada";
       }catch{
-        if(musicBtn) musicBtn.classList.add("show");
-        if(introHint) introHint.textContent = "🎵 Toca para activar música";
+        // Si el navegador bloquea, no mostramos botón (como pediste).
+        // Con tocar el corazón suele bastar, así que lo dejamos silencioso si falla.
+        if(introHint) introHint.textContent = "💗";
       }
-    }
-    window.addEventListener("load", tryPlayMusic);
-    ["click","touchstart","pointerdown"].forEach(ev=>{
-      window.addEventListener(ev, ()=>{ tryPlayMusic(); }, { passive:true });
-    });
-    if(musicBtn){
-      musicBtn.addEventListener("click", async ()=>{
-        if(!musicOn){
-          await tryPlayMusic();
-        }else{
-          bgMusic.pause();
-          musicOn = false;
-          musicBtn.textContent = "🎵 Toca para música";
-          musicBtn.classList.add("show");
-        }
-      });
     }
 
     /* ========= TYPEWRITER (carta) ========= */
@@ -1355,12 +1412,14 @@ y recuerdos que se van a quedar.
     const heartBtn = document.getElementById("heartBtn");
 
     let opened = false;
-    heartBtn.addEventListener("click", () => {
+    heartBtn.addEventListener("click", async () => {
       if(opened) return;
       opened = true;
-      tryPlayMusic();
+
+      await tryPlayMusic(); // ✅ música al tocar corazón
+
       introCard.classList.add("opened");
-      heartsBurst(18);
+      confettiHeartsFromElement(heartBtn, 26); // ✅ más fino que antes
       setTimeout(() => intro.classList.add("hide"), 850);
       setTimeout(() => show(0, "right"), 900);
     });
@@ -1521,69 +1580,45 @@ y recuerdos que se van a quedar.
     window.addEventListener("resize", placeNoInitial);
     placeNoInitial();
 
-    /* ========= CORAZONES ========= */
-    function heartsBurst(amount = 20){
-      if(prefersReduced) return;
-
-      for (let i=0; i<amount; i++){
-        const el = document.createElement("div");
-        el.className = "heartFX";
-        el.textContent = Math.random() < .72 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
-        el.style.left = (Math.random() * 100) + "vw";
-        el.style.top  = (-24) + "px";
-        el.style.fontSize = (14 + Math.random() * 28) + "px";
-        el.style.opacity = "1";
-
-        const drift = (Math.random()*2 - 1) * 300;
-        const rotate = (Math.random()*2 - 1) * 620;
-        const fall = 110 + Math.random() * 30;
-        const dur = 1200 + Math.random() * 900;
-
-        document.body.appendChild(el);
-
-        el.animate([
-          { transform: "translate3d(0,0,0) rotate(0deg)", opacity: 1 },
-          { transform: `translate3d(${drift}px, ${fall}vh, 0) rotate(${rotate}deg)`, opacity: 0 }
-        ], { duration: dur, easing: "cubic-bezier(.2,.7,.2,1)" });
-
-        setTimeout(()=> el.remove(), dur + 80);
-      }
-    }
-
-    function heartsBurstFromElement(el, amount = 34){
+    /* ========= CORAZONES PRO ========= */
+    function confettiHeartsFromElement(el, count = 42){
       if(prefersReduced) return;
       const r = el.getBoundingClientRect();
-      for(let i=0;i<amount;i++){
-        const fx = document.createElement("div");
-        fx.className = "heartFX";
-        fx.textContent = Math.random() < .72 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
 
-        const x = r.left + r.width/2 + (Math.random()*2 - 1) * 18;
-        const y = r.top  + r.height/2 + (Math.random()*2 - 1) * 14;
+      for(let i=0; i<count; i++){
+        const fx = document.createElement("div");
+        fx.className = "heartFXPro";
+        fx.textContent = Math.random() < .72 ? "💖" : (Math.random() < .55 ? "💘" : "✨");
+
+        // ✅ sale desde distintos puntos del botón (no un solo punto)
+        const x = r.left + rand(0.15, 0.85) * r.width;
+        const y = r.top  + rand(0.10, 0.90) * r.height;
 
         fx.style.left = x + "px";
         fx.style.top  = y + "px";
-        fx.style.fontSize = (14 + Math.random() * 28) + "px";
-        fx.style.opacity = "1";
+        fx.style.fontSize = rand(16, 30) + "px";
+
+        // ✅ dispersión suave y más lenta (se ve “pro”)
+        const dx = rand(-260, 260);
+        const dy = rand(-260, -520); // sube
+        const rot = rand(-520, 520) + "deg";
+        const dur = rand(1400, 2400) + "ms";
+
+        fx.style.setProperty("--dx", dx + "px");
+        fx.style.setProperty("--dy", dy + "px");
+        fx.style.setProperty("--rot", rot);
+        fx.style.setProperty("--dur", dur);
+
         document.body.appendChild(fx);
 
-        const drift = (Math.random()*2 - 1) * 260;
-        const rotate = (Math.random()*2 - 1) * 620;
-        const fall = 95 + Math.random() * 35;
-        const dur = 1100 + Math.random() * 900;
-
-        fx.animate([
-          { transform: "translate3d(0,0,0) rotate(0deg)", opacity: 1 },
-          { transform: `translate3d(${drift}px, ${fall}vh, 0) rotate(${rotate}deg)`, opacity: 0 }
-        ], { duration: dur, easing: "cubic-bezier(.2,.7,.2,1)" });
-
-        setTimeout(()=> fx.remove(), dur + 80);
+        // remover cuando termine
+        setTimeout(()=> fx.remove(), parseFloat(dur) + 120);
       }
     }
 
     /* ========= SÍ -> FINAL ========= */
     function goFinal(){
-      heartsBurstFromElement(yesBtn, 42);
+      confettiHeartsFromElement(yesBtn, 54); // ✅ más bonito y visible
       show(3, "right");
     }
     yesBtn.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); goFinal(); });
@@ -1593,7 +1628,7 @@ y recuerdos que se van a quedar.
     function romanticFinal(){
       const finalCard = document.getElementById("finalCard");
       finalCard.classList.add("finalOn");
-      heartsBurst(52);
+      confettiHeartsFromElement(finalCard, 52);
 
       const lace = finalCard.querySelector(".lace");
       if(!prefersReduced){
