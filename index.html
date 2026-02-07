@@ -14,9 +14,11 @@
       --rose:#e1174f;
       --rose2:#ff2d6b;
       --ink:#2a1f24;
+      --ink2:#5b4952;
       --paper:#ffeaf2;
-      --line: rgba(225,23,79,.55);
-      --line2: rgba(225,23,79,.25);
+      --paper2:#ffe2ee;
+      --line: rgba(225,23,79,.65);
+      --line2: rgba(225,23,79,.28);
       --shadow: 0 26px 70px rgba(0,0,0,.18);
       --shadow2: 0 16px 40px rgba(0,0,0,.12);
       --r: 22px;
@@ -37,16 +39,16 @@
       background: linear-gradient(135deg, var(--pink0), var(--pink1));
     }
 
-    /* ------------------------------
-       FONDO CON MOVIMIENTO (más evidente)
-    ------------------------------ */
+    /* =========================
+       FONDO CON MOVIMIENTO (visible)
+    ========================== */
     .bg-aurora{
       position: fixed; inset:-22%;
-      z-index:-4;
+      z-index:-5;
       background:
-        radial-gradient(900px 560px at 18% 20%, rgba(225,23,79,.26), transparent 60%),
-        radial-gradient(900px 560px at 85% 30%, rgba(255,255,255,.65), transparent 60%),
-        radial-gradient(900px 560px at 55% 90%, rgba(255,45,107,.18), transparent 60%),
+        radial-gradient(900px 560px at 18% 20%, rgba(225,23,79,.28), transparent 60%),
+        radial-gradient(900px 560px at 85% 30%, rgba(255,255,255,.70), transparent 60%),
+        radial-gradient(900px 560px at 55% 90%, rgba(255,45,107,.20), transparent 60%),
         linear-gradient(135deg, var(--pink0), var(--pink1));
       filter: saturate(1.10);
       animation: auroraDrift 9s var(--ease2) infinite alternate;
@@ -56,10 +58,9 @@
       to  { transform: translate3d( 1.7%,  1.2%, 0) scale(1.10); }
     }
 
-    /* Bruma/ruido suave */
     .bg-grain{
       position: fixed; inset:-30%;
-      z-index:-3;
+      z-index:-4;
       opacity:.16;
       background-image:
         repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0px, rgba(0,0,0,.05) 1px, transparent 2px, transparent 6px),
@@ -72,10 +73,9 @@
       100% { transform: translate3d( 2%,  2%, 0) rotate(1deg); }
     }
 
-    /* PÉTALOS: más cantidad, más grandes, más opacidad */
     .petals{
       position: fixed; inset:-10%;
-      z-index:-2;
+      z-index:-3;
       pointer-events:none;
       opacity:1;
     }
@@ -83,15 +83,14 @@
       position:absolute;
       width: 14px; height: 14px;
       border-radius: 6px 14px 6px 14px;
-      background: rgba(225,23,79,.28);
-      filter: blur(.15px);
+      background: rgba(225,23,79,.30);
+      filter: blur(.12px);
       box-shadow: 0 10px 22px rgba(225,23,79,.10);
       animation: fall linear infinite;
       transform: rotate(15deg);
     }
-    .petal.white{ background: rgba(255,255,255,.65); }
+    .petal.white{ background: rgba(255,255,255,.70); }
     .petal.soft { background: rgba(255,45,107,.18); }
-
     @keyframes fall{
       0%   { transform: translate3d(var(--x), -140px, 0) rotate(0deg); opacity:0; }
       10%  { opacity:var(--op); }
@@ -102,16 +101,271 @@
       .bg-aurora, .bg-grain, .petal{ animation:none !important; }
     }
 
-    /* ------------------------------
-       APP / PÁGINAS
-    ------------------------------ */
+    /* =========================
+       INTRO: SOBRE / CARTA (interactivo)
+    ========================== */
+    .intro{
+      position: fixed; inset:0;
+      z-index: 50;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+    }
+    .intro.hide{
+      opacity:0;
+      transform: translateY(-10px);
+      pointer-events:none;
+    }
+
+    .introCard{
+      width: min(520px, 92vw);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: var(--shadow);
+      padding: 20px 18px 22px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .introTitle{
+      font-family: var(--serif);
+      color: rgba(225,23,79,.92);
+      font-weight: 900;
+      font-size: 18px;
+      margin: 2px 0 8px;
+    }
+    .introSub{
+      color: rgba(91,73,82,.80);
+      font-size: 13.5px;
+      margin: 0 0 14px;
+    }
+
+    .envWrap{
+      position:relative;
+      margin: 8px auto 0;
+      width: min(360px, 86vw);
+      height: 310px;
+    }
+    .softShadow{
+      position:absolute;
+      left:50%; bottom: 12px;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 26px;
+      background: radial-gradient(closest-side, rgba(0,0,0,.18), transparent 70%);
+      filter: blur(2px);
+      opacity:.55;
+    }
+    .letter{
+      position:absolute;
+      left:50%;
+      top: 22px;
+      transform: translateX(-50%);
+      width: 86%;
+      height: 205px;
+      background: linear-gradient(180deg, #fffafc, #fff0f6);
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow2);
+      padding: 18px 16px 16px;
+      z-index: 2;
+      transition: transform .75s var(--ease), top .75s var(--ease), opacity .6s var(--ease);
+    }
+    .letter::before{
+      content:"";
+      position:absolute;
+      inset: 10px;
+      border-radius: 12px;
+      border: 1px dashed rgba(0,0,0,.10);
+      pointer-events:none;
+    }
+    .letter h2{
+      margin: 8px 0 10px;
+      font-family: var(--serif);
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: rgba(42,31,36,.88);
+    }
+    .letter p{
+      margin: 0;
+      color: rgba(91,73,82,.88);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .heartBtn{
+      position:absolute;
+      left:50%;
+      bottom: 52px;
+      transform: translateX(-50%);
+      width: 68px;
+      height: 60px;
+      border: 0;
+      cursor: pointer;
+      background: transparent;
+      z-index: 6;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.18));
+      transition: transform .15s var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .heartBtn:active{ transform: translateX(-50%) scale(.97); }
+
+    .heart{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: rotate(-45deg);
+      background: var(--rose2);
+      border-radius: 10px;
+      animation: heartPulse 1.1s var(--ease) infinite;
+    }
+    .heart::before,
+    .heart::after{
+      content:"";
+      position:absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--rose2);
+      border-radius: 50%;
+    }
+    .heart::before{ top: -50%; left: 0; }
+    .heart::after { left: 50%; top: 0; }
+    @keyframes heartPulse{
+      0%,100%{ transform: rotate(-45deg) scale(1); }
+      50%    { transform: rotate(-45deg) scale(1.08); }
+    }
+
+    .envelope{
+      position:absolute;
+      left:50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 92%;
+      height: 190px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f7a5bc, #f38aaa);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow2);
+      z-index: 3;
+      overflow:hidden;
+    }
+    .envelope::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(220px 120px at 30% 20%, rgba(255,255,255,.25), transparent 60%),
+        radial-gradient(220px 120px at 70% 35%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.06));
+      opacity:.65;
+      pointer-events:none;
+    }
+
+    .flapTop{
+      position:absolute;
+      left:0; right:0;
+      top: 0;
+      height: 0;
+      border-left: 166px solid transparent;
+      border-right: 166px solid transparent;
+      border-top: 110px solid #fbd0dc;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform .75s var(--ease);
+      z-index: 5;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.10));
+    }
+    .flapLeft{
+      position:absolute;
+      left:0; bottom:0;
+      width:0; height:0;
+      border-right: 166px solid transparent;
+      border-top: 95px solid rgba(255,255,255,.12);
+      border-bottom: 95px solid rgba(0,0,0,.03);
+      opacity:.45;
+      z-index:4;
+    }
+    .flapRight{
+      position:absolute;
+      right:0; bottom:0;
+      width:0; height:0;
+      border-left: 166px solid transparent;
+      border-top: 95px solid rgba(255,255,255,.10);
+      border-bottom: 95px solid rgba(0,0,0,.02);
+      opacity:.40;
+      z-index:4;
+    }
+    .flapBottom{
+      position:absolute;
+      left:0; right:0;
+      bottom:0;
+      height:0;
+      border-left: 166px solid transparent;
+      border-right: 166px solid transparent;
+      border-bottom: 110px solid rgba(255,255,255,.18);
+      opacity:.55;
+      z-index:4;
+    }
+    .seal{
+      position:absolute;
+      left: 22px;
+      bottom: 16px;
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
+                  linear-gradient(135deg, #ff2d55, #ff7a98);
+      box-shadow: 0 14px 30px rgba(255,45,85,.25);
+      display:grid;
+      place-items:center;
+      z-index: 6;
+      transform: rotate(-6deg);
+      opacity:.92;
+    }
+    .seal span{
+      color:white;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .03em;
+      text-shadow: 0 8px 18px rgba(0,0,0,.22);
+      user-select:none;
+    }
+
+    .introCard.opened .flapTop{ transform: rotateX(160deg); }
+    .introCard.opened .letter{
+      top: 6px;
+      transform: translateX(-50%) translateY(-18px);
+    }
+
+    .introHint{
+      margin-top: 14px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.85);
+      color: rgba(42,31,36,.70);
+      font-weight: 800;
+      font-size: 13px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      user-select:none;
+    }
+
+    /* =========================
+       REVISTA / PÁGINAS
+    ========================== */
     .app{
       height:100%;
       display:grid;
       place-items:center;
       padding: 18px;
     }
-
     .mag{
       width: min(560px, 94vw);
       height: min(980px, 92vh);
@@ -123,7 +377,6 @@
       overflow:hidden;
       position:relative;
     }
-
     .mag::before{
       content:"";
       position:absolute; inset:0;
@@ -145,13 +398,22 @@
       opacity:0;
       transform: translate3d(14px, 0, 0);
       pointer-events:none;
-      transition: opacity .35s var(--ease), transform .35s var(--ease);
     }
     .page.active{
       opacity:1;
       transform: translate3d(0,0,0);
       pointer-events:auto;
     }
+
+    /* Transiciones de página (bonitas) */
+    .page.anim-in-right{ animation: inRight .45s var(--ease) both; }
+    .page.anim-out-left{ animation: outLeft .35s var(--ease) both; }
+    .page.anim-in-left{ animation: inLeft .45s var(--ease) both; }
+    .page.anim-out-right{ animation: outRight .35s var(--ease) both; }
+    @keyframes inRight{ from{opacity:0; transform: translate3d(18px,0,0);} to{opacity:1; transform: translate3d(0,0,0);} }
+    @keyframes outLeft{ from{opacity:1; transform: translate3d(0,0,0);} to{opacity:0; transform: translate3d(-18px,0,0);} }
+    @keyframes inLeft{ from{opacity:0; transform: translate3d(-18px,0,0);} to{opacity:1; transform: translate3d(0,0,0);} }
+    @keyframes outRight{ from{opacity:1; transform: translate3d(0,0,0);} to{opacity:0; transform: translate3d(18px,0,0);} }
 
     .topline{
       display:flex;
@@ -162,7 +424,6 @@
       letter-spacing: .08em;
       text-transform: uppercase;
     }
-
     .rule{
       height:2px;
       background: var(--line);
@@ -228,9 +489,7 @@
       gap: 14px;
       align-items:start;
     }
-    @media (max-width: 520px){
-      .columns{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 520px){ .columns{ grid-template-columns: 1fr; } }
 
     .article{
       background: rgba(255,255,255,.55);
@@ -298,6 +557,7 @@
       padding: 10px 12px;
       text-align:center;
       letter-spacing: .02em;
+      user-select:none;
     }
 
     .tickets{
@@ -359,7 +619,9 @@
       letter-spacing: -0.01em;
     }
 
-    /* PAGE 2 */
+    /* =========================
+       PAGE 2: 05 RAZONES (MATRIZ)
+    ========================== */
     .bigTitle{
       text-align:center;
       font-family: var(--serif);
@@ -374,48 +636,69 @@
       font-size: 30px; font-style: italic; font-weight: 900; letter-spacing: -0.02em;
     }
 
-    .grid5{
+    .matrix{
       margin-top: 12px;
+      border-radius: 18px;
+      border: 2px solid rgba(225,23,79,.35);
+      background: rgba(255,255,255,.45);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      overflow:hidden;
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
     }
-    @media (max-width: 520px){ .grid5{ grid-template-columns: 1fr; } }
-
-    .reason{
-      border-radius: 18px;
-      background: rgba(255,255,255,.62);
-      border: 1px solid rgba(225,23,79,.20);
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      padding: 14px;
+    .cell{
+      min-height: 120px;
+      padding: 16px 14px;
       position:relative;
-      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 10px;
+      font-family: var(--serif);
+      color: rgba(42,31,36,.78);
+      line-height: 1.35;
     }
-    .reason::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(420px 260px at 20% 15%, rgba(225,23,79,.10), transparent 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .reason .num{
+    .cell:nth-child(odd){ border-right: 2px solid rgba(225,23,79,.28); }
+    .cell{ border-bottom: 2px solid rgba(225,23,79,.28); }
+    .cell.lastRow{ border-bottom: 0; }
+
+    .num{
+      position:absolute;
+      top: 10px; left: 12px;
       font-family: var(--serif);
       font-weight: 900;
       font-size: 26px;
       color: rgba(225,23,79,.92);
-      position:relative;
     }
-    .reason .txt{
-      margin-top: 8px;
-      font-family: var(--serif);
-      color: rgba(42,31,36,.78);
-      line-height: 1.45;
-      font-size: 15px;
-      position:relative;
+    .heartMark{
+      position:absolute;
+      right: 12px; bottom: 10px;
+      font-size: 26px;
+      color: rgba(225,23,79,.85);
+      opacity:.85;
     }
-    .reason .heart{
-      position:absolute; right: 12px; bottom: 10px;
-      font-size: 22px; opacity:.65;
+    .cellText{
+      margin-left: 28px;
+      font-size: 16px;
+    }
+
+    /* celda central tipo “corazón” como el ejemplo */
+    .centerHeart{
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(180px 120px at 50% 45%, rgba(225,23,79,.10), transparent 70%),
+        rgba(255,255,255,.38);
+    }
+    .centerHeart .bigH{
+      font-size: 44px;
+      color: rgba(225,23,79,.92);
+      filter: drop-shadow(0 10px 18px rgba(225,23,79,.15));
+      animation: pulseH 1.3s var(--ease) infinite;
+    }
+    @keyframes pulseH{
+      0%,100%{ transform: scale(1); }
+      50%{ transform: scale(1.06); }
     }
 
     .signals{
@@ -452,7 +735,9 @@
       font-size: 13.5px;
     }
 
-    /* PAGE 3: Pregunta + botones juntos */
+    /* =========================
+       PAGE 3: PREGUNTA + NO IMPOSIBLE
+    ========================== */
     .grand{
       text-align:center;
       font-family: var(--serif);
@@ -491,7 +776,6 @@
       letter-spacing: .02em;
     }
 
-    /* Bloque donde viven SÍ y NO (juntos) */
     .btnStage{
       margin: 16px auto 0;
       width: min(480px, 94%);
@@ -542,17 +826,9 @@
       min-width: 120px;
     }
 
-    .miniFooter{
-      text-align:center;
-      margin-top: 14px;
-      font-size: 11px;
-      letter-spacing:.16em;
-      text-transform: uppercase;
-      color: rgba(42,31,36,.45);
-      opacity:.8;
-    }
-
-    /* PAGE 4 */
+    /* =========================
+       PAGE 4: FINAL + ANIMACIÓN ROMÁNTICA
+    ========================== */
     .final{
       height: calc(100% - 0px);
       display:grid;
@@ -586,6 +862,7 @@
       letter-spacing: -0.02em;
       position:relative;
     }
+
     .lace{
       width: 220px;
       height: 160px;
@@ -595,6 +872,7 @@
       position:relative;
       box-shadow: 0 18px 40px rgba(0,0,0,.18);
       overflow:hidden;
+      transform: translateZ(0);
     }
     .lace::before{
       content:"";
@@ -613,6 +891,7 @@
       padding: 0 12px;
       text-align:center;
     }
+
     .initials{
       display:flex; justify-content:center; gap:10px;
       margin-top: -12px; position:relative;
@@ -639,6 +918,43 @@
       white-space: pre-line;
     }
 
+    /* Animación romántica al entrar al final */
+    .finalGlow{
+      position:absolute; inset:-20%;
+      background:
+        radial-gradient(700px 420px at 50% 35%, rgba(255,255,255,.14), transparent 60%),
+        radial-gradient(700px 420px at 30% 70%, rgba(255,255,255,.10), transparent 65%);
+      opacity:0;
+      pointer-events:none;
+    }
+    .finalOn .finalGlow{
+      animation: glowIn 1.2s var(--ease) both;
+    }
+    @keyframes glowIn{
+      0%{ opacity:0; transform: scale(.98); }
+      100%{ opacity:1; transform: scale(1.02); }
+    }
+
+    /* Confetti de corazones */
+    .heartFX{
+      position: fixed;
+      top: -24px;
+      z-index: 60;
+      pointer-events:none;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
+    }
+
+    .miniFooter{
+      text-align:center;
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      color: rgba(42,31,36,.45);
+      opacity:.8;
+    }
+
     /* NAV */
     .nav{
       position:absolute;
@@ -650,6 +966,7 @@
       background: linear-gradient(to top, rgba(255,255,255,.80), rgba(255,255,255,0));
       backdrop-filter: blur(6px);
       border-top: 1px solid rgba(225,23,79,.10);
+      z-index: 10;
     }
     .nav button{
       flex:1;
@@ -676,12 +993,46 @@
   <div class="bg-grain"></div>
   <div class="petals" id="petals" aria-hidden="true"></div>
 
+  <!-- INTRO / CARTA -->
+  <section class="intro" id="intro" aria-label="Inicio con carta">
+    <div class="introCard" id="introCard">
+      <div class="introTitle">Te tengo una sorpresa… 💌</div>
+      <div class="introSub">Para descubrirla, toca el corazón</div>
+
+      <div class="envWrap">
+        <div class="letter" id="letter">
+          <h2>Para ti 💗</h2>
+          <p>
+            Esto es solo el comienzo…<br/>
+            (toca el corazón para abrir)
+          </p>
+        </div>
+
+        <button class="heartBtn" id="heartBtn" aria-label="Abrir sobre">
+          <div class="heart"></div>
+        </button>
+
+        <div class="envelope" aria-hidden="true">
+          <div class="flapTop" id="flap"></div>
+          <div class="flapLeft"></div>
+          <div class="flapRight"></div>
+          <div class="flapBottom"></div>
+          <div class="seal"><span>LOVE</span></div>
+        </div>
+
+        <div class="softShadow"></div>
+      </div>
+
+      <div class="introHint">✨ Se abre con amor</div>
+    </div>
+  </section>
+
+  <!-- REVISTA -->
   <div class="app">
     <div class="mag" role="application" aria-label="Valentine Edition">
-
       <div class="pages">
 
-        <!-- PAGE 1 -->
+        <!-- PAGE 1: PORTADA -->
         <section class="page active" data-page="0" aria-label="Portada">
           <div class="topline">
             <span>Edición especial</span>
@@ -757,7 +1108,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 2 -->
+        <!-- PAGE 2: 05 RAZONES (MATRIZ) -->
         <section class="page" data-page="1" aria-label="Razones">
           <div class="topline">
             <span>Edición especial</span>
@@ -772,12 +1123,39 @@ y momentos que se queden grabados.
             <span class="s">por las que eres mi elección perfecta</span>
           </div>
 
-          <div class="grid5">
-            <div class="reason"><div class="num">1</div><div class="txt">Tienes la sonrisa más linda del universo.</div><div class="heart">❤</div></div>
-            <div class="reason"><div class="num">2</div><div class="txt">Haces que mi corazón lata más rápido cada vez que te pienso.</div><div class="heart">❤</div></div>
-            <div class="reason"><div class="num">3</div><div class="txt">Contigo, cualquier día se siente especial.</div><div class="heart">❤</div></div>
-            <div class="reason"><div class="num">4</div><div class="txt">Eres mi persona favorita para compartir momentos.</div><div class="heart">❤</div></div>
-            <div class="reason"><div class="num">5</div><div class="txt">No imagino a nadie más a mi lado en este San Valentín.</div><div class="heart">❤</div></div>
+          <!-- MATRIZ estilo tu referencia -->
+          <div class="matrix" aria-label="Matriz de razones">
+            <div class="cell">
+              <div class="num">1</div>
+              <div class="cellText">Tienes la sonrisa más linda del universo.</div>
+              <div class="heartMark">❤</div>
+            </div>
+
+            <div class="cell centerHeart">
+              <div class="bigH">❤</div>
+            </div>
+
+            <div class="cell">
+              <div class="num">3</div>
+              <div class="cellText">Contigo, cualquier día se siente especial.</div>
+              <div class="heartMark">❤</div>
+            </div>
+
+            <div class="cell">
+              <div class="num">2</div>
+              <div class="cellText">Haces que mi corazón lata más rápido cada vez que te pienso.</div>
+              <div class="heartMark">❤</div>
+            </div>
+
+            <div class="cell centerHeart lastRow">
+              <div class="bigH">❤</div>
+            </div>
+
+            <div class="cell lastRow">
+              <div class="num">5</div>
+              <div class="cellText">No imagino a nadie más a mi lado en este San Valentín.</div>
+              <div class="heartMark">❤</div>
+            </div>
           </div>
 
           <div class="signals">
@@ -794,7 +1172,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 3 -->
+        <!-- PAGE 3: LA GRAN PREGUNTA -->
         <section class="page" data-page="2" aria-label="La gran pregunta">
           <div class="topline">
             <span>Edición especial</span>
@@ -822,7 +1200,6 @@ y una sonrisa nerviosa:
 
           <div class="ask">Elige tu respuesta:</div>
 
-          <!-- Botones juntos (como veníamos trabajando) -->
           <div class="btnStage" id="btnStage">
             <button class="choice yes" id="yesBtn">SÍ 💖</button>
             <button class="choice no" id="noBtn" aria-label="No (imposible)">NO 🙈</button>
@@ -831,13 +1208,16 @@ y una sonrisa nerviosa:
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 4 -->
-        <section class="page" data-page="3" aria-label="Confirmado">
+        <!-- PAGE 4: CONFIRMADO -->
+        <section class="page" data-page="3" aria-label="Confirmado" id="finalPage">
           <div class="final">
-            <div class="finalCard">
+            <div class="finalCard" id="finalCard">
+              <div class="finalGlow" aria-hidden="true"></div>
               <h2>Confirmado oficialmente:</h2>
 
-              <div class="lace"><div class="txt">Eres mi San Valentín.</div></div>
+              <div class="lace">
+                <div class="txt">Eres mi San Valentín.</div>
+              </div>
 
               <div class="initials">
                 <div class="init">A</div>
@@ -866,54 +1246,103 @@ y recuerdos que se van a quedar.
   </div>
 
   <script>
-    /* ========= PÉTALOS MÁS VISIBLES ========= */
+    /* ========= PÉTALOS ========= */
     const petals = document.getElementById("petals");
-    const COUNT = 70; // más cantidad
-
+    const COUNT = 70;
     function rand(min, max){ return Math.random() * (max - min) + min; }
-
     for(let i=0; i<COUNT; i++){
       const p = document.createElement("div");
       p.className = "petal";
-
-      // variedad de colores
       const r = Math.random();
       if(r < 0.22) p.classList.add("white");
       else if(r < 0.52) p.classList.add("soft");
 
-      const size = rand(10, 20);
+      const size = rand(10, 22);
       p.style.width = size + "px";
       p.style.height = size + "px";
-
       p.style.left = rand(0, 100) + "vw";
       p.style.top  = rand(-30, 110) + "vh";
-
       p.style.setProperty("--x", rand(-40, 40) + "px");
       p.style.setProperty("--drift", rand(-220, 220) + "px");
       p.style.setProperty("--op", rand(.35, .95));
-
       p.style.animationDuration = rand(6.5, 13.5) + "s";
       p.style.animationDelay = rand(-13.5, 0) + "s";
-
       petals.appendChild(p);
     }
 
-    /* ========= PÁGINAS ========= */
+    /* ========= INTRO: ABRIR CARTA + PASAR A REVISTA ========= */
+    const intro = document.getElementById("intro");
+    const introCard = document.getElementById("introCard");
+    const heartBtn = document.getElementById("heartBtn");
+
+    let opened = false;
+    heartBtn.addEventListener("click", () => {
+      if(opened) return;
+      opened = true;
+      introCard.classList.add("opened");
+
+      // mini lluvia romántica
+      heartsBurst(18);
+
+      // tras abrir: transición a la revista
+      setTimeout(() => {
+        intro.classList.add("hide");
+      }, 850);
+
+      // muestra portada (por si alguien movió páginas)
+      setTimeout(() => {
+        show(0, "right");
+      }, 900);
+    });
+
+    /* ========= PÁGINAS + TRANSICIONES ========= */
     const pages = [...document.querySelectorAll(".page")];
     const prev = document.getElementById("prev");
     const next = document.getElementById("next");
     let current = 0;
 
-    function show(i){
-      current = Math.max(0, Math.min(pages.length-1, i));
-      pages.forEach((p, idx) => p.classList.toggle("active", idx === current));
-      prev.disabled = current === 0;
-      next.disabled = current === pages.length - 1;
-      pages[current].scrollTop = 0;
+    function clearAnim(p){
+      p.classList.remove("anim-in-right","anim-out-left","anim-in-left","anim-out-right");
     }
 
-    prev.addEventListener("click", () => show(current - 1));
-    next.addEventListener("click", () => show(current + 1));
+    function show(i, dir="right"){
+      const target = Math.max(0, Math.min(pages.length-1, i));
+      if(target === current) return;
+
+      const out = pages[current];
+      const inc = pages[target];
+
+      // reset anim classes
+      pages.forEach(clearAnim);
+
+      // set active flags (pero animaremos)
+      out.classList.add("active");
+      inc.classList.add("active");
+
+      if(dir === "right"){
+        out.classList.add("anim-out-left");
+        inc.classList.add("anim-in-right");
+      }else{
+        out.classList.add("anim-out-right");
+        inc.classList.add("anim-in-left");
+      }
+
+      // después de animación, dejamos solo la activa
+      setTimeout(() => {
+        pages.forEach((p, idx) => p.classList.toggle("active", idx === target));
+        clearAnim(out); clearAnim(inc);
+        current = target;
+        prev.disabled = current === 0;
+        next.disabled = current === pages.length - 1;
+        pages[current].scrollTop = 0;
+
+        // si entramos a la final: efecto romántico
+        if(current === 3) romanticFinal();
+      }, 420);
+    }
+
+    prev.addEventListener("click", () => show(current - 1, "left"));
+    next.addEventListener("click", () => show(current + 1, "right"));
 
     // swipe móvil
     let startX = null;
@@ -927,13 +1356,14 @@ y recuerdos que se van a quedar.
       const dx = endX - startX;
       startX = null;
       if(Math.abs(dx) < 60) return;
-      if(dx < 0) show(current + 1);
-      else show(current - 1);
+      if(dx < 0) show(current + 1, "right");
+      else show(current - 1, "left");
     }, {passive:true});
 
-    show(0);
+    // estado inicial
+    prev.disabled = true;
 
-    /* ========= DINÁMICA NO IMPOSIBLE (misma idea anterior) ========= */
+    /* ========= DINÁMICA NO IMPOSIBLE ========= */
     const btnStage = document.getElementById("btnStage");
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -944,7 +1374,6 @@ y recuerdos que se van a quedar.
 
     function placeNoInitial(){
       const s = btnStage.getBoundingClientRect();
-      // arranca a la derecha, al lado del sí
       const x = clamp(s.width * 0.62, 12, s.width - 150);
       const y = clamp(s.height * 0.50, 12, s.height - 52);
       noBtn.style.left = x + "px";
@@ -972,7 +1401,6 @@ y recuerdos que se van a quedar.
       if(dodges >= 12) noBtn.textContent = "😅";
     }
 
-    // se mueve ANTES del click (imposible tocarlo)
     noBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); moveNo(); });
     noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); moveNo(); }, {passive:false});
     noBtn.addEventListener("mouseenter", moveNo);
@@ -981,8 +1409,56 @@ y recuerdos que se van a quedar.
     window.addEventListener("resize", placeNoInitial);
     placeNoInitial();
 
-    // Sí → confirmación
-    yesBtn.addEventListener("click", () => show(3));
+    /* ========= SÍ: pasar SOLO a la última página + animación ========= */
+    yesBtn.addEventListener("click", () => {
+      heartsBurst(26);          // efecto previo
+      show(3, "right");         // pasa solo
+    });
+
+    /* ========= EFECTO ROMÁNTICO FINAL ========= */
+    function romanticFinal(){
+      const finalCard = document.getElementById("finalCard");
+      finalCard.classList.add("finalOn");
+      // lluvia de corazones más intensa
+      heartsBurst(42);
+
+      // pulso suave extra en el encaje (solo visual)
+      const lace = finalCard.querySelector(".lace");
+      lace.animate(
+        [{transform:"scale(1)"},{transform:"scale(1.02)"},{transform:"scale(1)"}],
+        {duration: 1200, easing:"cubic-bezier(.2,.7,.2,1)"}
+      );
+    }
+
+    /* ========= CONFETTI CORAZONES ========= */
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function heartsBurst(amount = 20){
+      if(prefersReduced) return;
+
+      for (let i=0; i<amount; i++){
+        const el = document.createElement("div");
+        el.className = "heartFX";
+        el.textContent = Math.random() < .7 ? "💖" : (Math.random() < .5 ? "💘" : "✨");
+        el.style.left = (Math.random() * 100) + "vw";
+        el.style.fontSize = (14 + Math.random() * 26) + "px";
+        el.style.opacity = "1";
+
+        const drift = (Math.random()*2 - 1) * 240;
+        const rotate = (Math.random()*2 - 1) * 420;
+        const fall = 110 + Math.random() * 30;
+        const dur = 1200 + Math.random() * 900;
+
+        document.body.appendChild(el);
+
+        el.animate([
+          { transform: "translate3d(0,0,0) rotate(0deg)", opacity: 1 },
+          { transform: `translate3d(${drift}px, ${fall}vh, 0) rotate(${rotate}deg)`, opacity: 0 }
+        ], { duration: dur, easing: "cubic-bezier(.2,.7,.2,1)" });
+
+        setTimeout(()=> el.remove(), dur + 60);
+      }
+    }
   </script>
 </body>
 </html>
