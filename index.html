@@ -652,9 +652,7 @@
       animation-play-state: var(--animPlay);
       pointer-events:none;
     }
-    @keyframes shimmer{
-      to{ transform: translateX(60%); }
-    }
+    @keyframes shimmer{ to{ transform: translateX(60%); } }
     body.night .frame.loading::after{ opacity:.22; }
 
     .frame img{
@@ -670,9 +668,7 @@
     }
     .frame.loaded img{ opacity:1; }
     .frame:hover img{ transform: scale(1.06); }
-    @media (hover: none){
-      .frame:hover img{ transform: scale(1.02); }
-    }
+    @media (hover: none){ .frame:hover img{ transform: scale(1.02); } }
 
     .overlayBtn{
       margin-top: 10px;
@@ -1117,7 +1113,7 @@
       background: rgba(0,0,0,.08);
     }
 
-    /* ✅ NUEVO: descripción debajo de la imagen */
+    /* ✅ descripción debajo de la imagen */
     .modalDesc{
       padding: 12px 14px 14px;
       background: rgba(255,255,255,.75);
@@ -1596,7 +1592,6 @@
       <div class="modalImgWrap">
         <img class="modalImg" id="modalImg" alt="Foto ampliada">
       </div>
-      <!-- ✅ NUEVO: descripción -->
       <div class="modalDesc" id="modalDesc"></div>
     </div>
   </div>
@@ -1686,19 +1681,13 @@ Mediante este regalito quiero que sepas lo importante que eres en mi vida. Eres 
             </div>
           </div>
 
+          <!-- ✅ CORREGIDO: se elimina el cupón de ir al cine -->
           <div class="tickets">
             <div class="ticket">
               <div class="stub">San Valentín</div>
               <div class="body">
                 <div class="label">Cupón para:</div>
                 <div class="value">Una cita sorpresa ✨</div>
-              </div>
-            </div>
-            <div class="ticket">
-              <div class="stub">San Valentín</div>
-              <div class="body">
-                <div class="label">Cupón para:</div>
-                <div class="value">Una ida al cine 🎬</div>
               </div>
             </div>
           </div>
@@ -1787,7 +1776,6 @@ Mediante este regalito quiero que sepas lo importante que eres en mi vida. Eres 
           <div class="galleryTitle">Mini galería</div>
           <div class="gallerySub">Toca una polaroid para verla en grande ✨</div>
 
-          <!-- ✅ Aquí están las descripciones lindas -->
           <div class="polaroids" id="polaroids">
             <div class="polaroid" style="--rot:-2.4deg"
               data-src="Foto%201.jpeg"
@@ -1969,9 +1957,9 @@ y recuerdos que se van a quedar.
           <button id="prev" type="button">PAG. ANTERIOR</button>
           <button id="next" type="button">PAG. SIGUIENTE</button>
 
+          <!-- ✅ CORREGIDO: se elimina el botón "Compartir" -->
           <div class="navChips">
             <button class="chip" id="toggleNight" type="button" aria-label="Cambiar modo">🌙 Modo</button>
-            <button class="chip" id="shareBtn" type="button" aria-label="Compartir">📤 Compartir</button>
           </div>
         </div>
 
@@ -2129,24 +2117,26 @@ y recuerdos que se van a quedar.`;
 
     if(heartBtn) heartBtn.addEventListener("pointerup", tryPlayMusic, { once:true });
 
-    heartBtn.addEventListener("click", async () => {
-      if(opened) return;
-      opened = true;
+    if(heartBtn){
+      heartBtn.addEventListener("click", async () => {
+        if(opened) return;
+        opened = true;
 
-      await tryPlayMusic();
-      vibrate(20);
+        await tryPlayMusic();
+        vibrate(20);
 
-      introCard.classList.add("opened");
-      confettiHeartsFromElement(heartBtn, 26);
-      playSfx(sfxPop, 0.20);
+        introCard.classList.add("opened");
+        confettiHeartsFromElement(heartBtn, 26);
+        playSfx(sfxPop, 0.20);
 
-      setTimeout(() => intro.classList.add("hide"), 850);
-      setTimeout(() => {
-        pages.forEach((p, idx) => p.classList.toggle("active", idx === current));
-        updateNav();
-        pages[current].scrollTop = 0;
-      }, 900);
-    });
+        setTimeout(() => intro.classList.add("hide"), 850);
+        setTimeout(() => {
+          pages.forEach((p, idx) => p.classList.toggle("active", idx === current));
+          updateNav();
+          pages[current].scrollTop = 0;
+        }, 900);
+      });
+    }
 
     const seal = document.getElementById("seal");
     let sealTaps = 0;
@@ -2236,8 +2226,8 @@ y recuerdos que se van a quedar.`;
       }, 520);
     }
 
-    prev.addEventListener("click", () => show(current - 1, "left"));
-    next.addEventListener("click", () => show(current + 1, "right"));
+    if(prev) prev.addEventListener("click", () => show(current - 1, "left"));
+    if(next) next.addEventListener("click", () => show(current + 1, "right"));
 
     pages.forEach((p, idx)=> p.classList.toggle("active", idx === current));
     updateNav();
@@ -2287,25 +2277,6 @@ y recuerdos que se van a quedar.`;
         localStorage.setItem("night", document.body.classList.contains("night") ? "1" : "0");
         vibrate(10);
         toast(document.body.classList.contains("night") ? "Modo noche 🌙" : "Modo día ☀️");
-      });
-    }
-
-    const shareBtn = document.getElementById("shareBtn");
-    if(shareBtn){
-      shareBtn.addEventListener("click", async ()=>{
-        vibrate(10);
-        const text = `Valentine Edition 💘 (para ${NOMBRE})`;
-        try{
-          if(navigator.share){
-            await navigator.share({ title: "Valentine Edition 💘", text });
-            toast("Compartido ✨");
-          }else{
-            await navigator.clipboard.writeText(text);
-            toast("Copiado al portapapeles ✨");
-          }
-        }catch{
-          toast("No se pudo compartir 😅");
-        }
       });
     }
 
