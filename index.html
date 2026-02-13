@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="es">
 <head>
@@ -42,8 +41,8 @@
       background: radial-gradient(900px 700px at 20% 10%, rgba(255,45,107,.18), transparent 55%),
                   linear-gradient(135deg, #120a10, #2a0f1b);
       color: rgba(255,255,255,.88);
+      color-scheme: dark; /* ✅ FIX: esto evita el selector incorrecto body.night :root */
     }
-    body.night :root { color-scheme: dark; }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -429,7 +428,6 @@
       --my: 30%;
       touch-action: pan-y;
 
-      /* ✅ efecto “revista” */
       perspective: 1200px;
       transform-style: preserve-3d;
     }
@@ -471,7 +469,7 @@
 
     .page{
       position:absolute; inset:0;
-      padding: 18px 18px 92px; /* deja espacio para nav + chips */
+      padding: 18px 18px 92px;
       overflow:auto;
       -webkit-overflow-scrolling: touch;
       opacity:0;
@@ -486,7 +484,6 @@
       pointer-events:auto;
     }
 
-    /* ✅ Animación tipo flip (hoja) */
     .page.flip-in-right{ animation: flipInRight .55s var(--ease) both; }
     .page.flip-out-left{ animation: flipOutLeft .45s var(--ease) both; }
     .page.flip-in-left{ animation: flipInLeft .55s var(--ease) both; }
@@ -654,7 +651,6 @@
       position:relative;
     }
 
-    /* ✅ Skeleton / placeholder mientras carga */
     .frame.loading::after{
       content:"";
       position:absolute; inset:-40%;
@@ -817,7 +813,6 @@
     }
     body.night .p2Header .t3{ color: rgba(255,255,255,.70); }
 
-    /* ✅ (MOD) más compacto */
     .matrixWrap{
       margin-top: 6px;
       border-radius: 18px;
@@ -986,7 +981,7 @@
     @keyframes sigIn{ to{ transform: translateY(0); opacity:1; } }
 
     /* =========================
-       PAGE 3: GALERÍA POLAROIDS (cute)
+       PAGE 3: GALERÍA POLAROIDS
     ========================== */
     .galleryTitle{
       text-align:center;
@@ -1567,7 +1562,6 @@
       flex-wrap: wrap;
     }
 
-    /* Pequeño toast */
     .toast{
       position: fixed;
       left: 50%;
@@ -1826,47 +1820,55 @@ y momentos que se queden grabados.
           <div class="galleryTitle">Mini galería</div>
           <div class="gallerySub">Toca una polaroid para verla en grande ✨</div>
 
+          <!-- ✅✅✅ MOD: AHORA SON 12 FOTOS ✅✅✅ -->
           <div class="polaroids" id="polaroids">
-            <div class="polaroid" style="--rot:-2.4deg" data-src="foto1.jpg" data-title="Ese día 🥹">
-              <div class="pic"><img src="foto1.jpg" alt="Foto 1" loading="lazy" decoding="async"></div>
-              <div class="cap">Ese día 🥹</div>
+            <div class="polaroid" style="--rot:-2.4deg" data-src="Foto%201.jpeg" data-title="Foto 1 💗">
+              <div class="pic"><img src="Foto%201.jpeg" alt="Foto 1" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 1 💗</div>
             </div>
-            <div class="polaroid" style="--rot:1.7deg" data-src="foto2.jpg" data-title="Nosotros 💗">
-              <div class="pic"><img src="foto2.jpg" alt="Foto 2" loading="lazy" decoding="async"></div>
-              <div class="cap">Nosotros 💗</div>
+            <div class="polaroid" style="--rot:1.7deg" data-src="Foto%202.jpeg" data-title="Foto 2 💗">
+              <div class="pic"><img src="Foto%202.jpeg" alt="Foto 2" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 2 💗</div>
             </div>
-            <div class="polaroid" style="--rot:2.2deg" data-src="foto3.jpg" data-title="Risas ✨">
-              <div class="pic"><img src="foto3.jpg" alt="Foto 3" loading="lazy" decoding="async"></div>
-              <div class="cap">Risas ✨</div>
+            <div class="polaroid" style="--rot:2.2deg" data-src="Foto%203.jpeg" data-title="Foto 3 ✨">
+              <div class="pic"><img src="Foto%203.jpeg" alt="Foto 3" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 3 ✨</div>
             </div>
-            <div class="polaroid" style="--rot:-1.3deg" data-src="foto4.jpg" data-title="Momentito 🫶">
-              <div class="pic"><img src="foto4.jpg" alt="Foto 4" loading="lazy" decoding="async"></div>
-              <div class="cap">Momentito 🫶</div>
+            <div class="polaroid" style="--rot:-1.3deg" data-src="Foto%204.jpeg" data-title="Foto 4 🫶">
+              <div class="pic"><img src="Foto%204.jpeg" alt="Foto 4" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 4 🫶</div>
             </div>
-
-            <div class="polaroid" style="--rot:1.2deg" data-src="foto5.jpg" data-title="Un recuerdo 💞">
-              <div class="pic"><img src="foto5.jpg" alt="Foto 5" loading="lazy" decoding="async"></div>
-              <div class="cap">Un recuerdo 💞</div>
+            <div class="polaroid" style="--rot:1.2deg" data-src="Foto%205.jpeg" data-title="Foto 5 💞">
+              <div class="pic"><img src="Foto%205.jpeg" alt="Foto 5" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 5 💞</div>
             </div>
-            <div class="polaroid" style="--rot:-2.0deg" data-src="foto6.jpg" data-title="Tu mirada ✨">
-              <div class="pic"><img src="foto6.jpg" alt="Foto 6" loading="lazy" decoding="async"></div>
-              <div class="cap">Tu mirada ✨</div>
+            <div class="polaroid" style="--rot:-2.0deg" data-src="Foto%206.jpeg" data-title="Foto 6 ✨">
+              <div class="pic"><img src="Foto%206.jpeg" alt="Foto 6" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 6 ✨</div>
             </div>
-            <div class="polaroid" style="--rot:2.6deg" data-src="foto7.jpg" data-title="Aventura 🗺️">
-              <div class="pic"><img src="foto7.jpg" alt="Foto 7" loading="lazy" decoding="async"></div>
-              <div class="cap">Aventura 🗺️</div>
+            <div class="polaroid" style="--rot:2.6deg" data-src="Foto%207.jpeg" data-title="Foto 7 🗺️">
+              <div class="pic"><img src="Foto%207.jpeg" alt="Foto 7" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 7 🗺️</div>
             </div>
-            <div class="polaroid" style="--rot:-1.6deg" data-src="foto8.jpg" data-title="Abrazo 🫶">
-              <div class="pic"><img src="foto8.jpg" alt="Foto 8" loading="lazy" decoding="async"></div>
-              <div class="cap">Abrazo 🫶</div>
+            <div class="polaroid" style="--rot:-1.6deg" data-src="Foto%208.jpeg" data-title="Foto 8 🫶">
+              <div class="pic"><img src="Foto%208.jpeg" alt="Foto 8" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 8 🫶</div>
             </div>
-            <div class="polaroid" style="--rot:1.9deg" data-src="foto9.jpg" data-title="Qué bonito 🥰">
-              <div class="pic"><img src="foto9.jpg" alt="Foto 9" loading="lazy" decoding="async"></div>
-              <div class="cap">Qué bonito 🥰</div>
+            <div class="polaroid" style="--rot:1.9deg" data-src="Foto%209.jpeg" data-title="Foto 9 🥰">
+              <div class="pic"><img src="Foto%209.jpeg" alt="Foto 9" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 9 🥰</div>
             </div>
-            <div class="polaroid" style="--rot:-2.2deg" data-src="foto10.jpg" data-title="Siempre tú 💗">
-              <div class="pic"><img src="foto10.jpg" alt="Foto 10" loading="lazy" decoding="async"></div>
-              <div class="cap">Siempre tú 💗</div>
+            <div class="polaroid" style="--rot:-2.2deg" data-src="Foto%2010.jpeg" data-title="Foto 10 💗">
+              <div class="pic"><img src="Foto%2010.jpeg" alt="Foto 10" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 10 💗</div>
+            </div>
+            <div class="polaroid" style="--rot:1.4deg" data-src="Foto%2011.jpeg" data-title="Foto 11 ✨">
+              <div class="pic"><img src="Foto%2011.jpeg" alt="Foto 11" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 11 ✨</div>
+            </div>
+            <div class="polaroid" style="--rot:-1.9deg" data-src="Foto%2012.jpeg" data-title="Foto 12 💘">
+              <div class="pic"><img src="Foto%2012.jpeg" alt="Foto 12" loading="lazy" decoding="async"></div>
+              <div class="cap">Foto 12 💘</div>
             </div>
           </div>
 
@@ -2168,13 +2170,12 @@ y recuerdos que se van a quedar.`;
     const next = document.getElementById("next");
     const pageLabel = document.getElementById("pageLabel");
 
-    const TOTAL = pages.length;          // 5
-    const ASK_INDEX = 3;                 // página pregunta
-    const FINAL_INDEX = TOTAL - 1;       // 4
+    const TOTAL = pages.length;
+    const ASK_INDEX = 3;
+    const FINAL_INDEX = TOTAL - 1;
 
-    /* ✅✅✅ FIX: SIEMPRE INICIA EN LA PRIMERA PÁGINA ✅✅✅ */
     let current = 0;
-    localStorage.removeItem("page"); // opcional: limpia el guardado previo
+    localStorage.removeItem("page");
 
     function clearAnim(p){
       p.classList.remove("flip-in-right","flip-out-left","flip-in-left","flip-out-right");
@@ -2198,9 +2199,6 @@ y recuerdos que se van a quedar.`;
       }
 
       updateProgress();
-
-      /* ❌ ya no guardamos la página (para que siempre abra en la 1) */
-      // localStorage.setItem("page", String(current));
     }
 
     function show(i, dir="right", sfx=true){
@@ -2321,7 +2319,7 @@ y recuerdos que se van a quedar.`;
 
     function openModal(src, title){
       if(!modal || !modalImg) return;
-      modalImg.src = src;
+      modalImg.src = src; // ya viene con %20
       if(modalTitle) modalTitle.textContent = title || "💗";
       modal.classList.add("show");
       modal.setAttribute("aria-hidden","false");
@@ -2547,6 +2545,7 @@ y recuerdos que se van a quedar.`;
       ctx.fillStyle = "rgba(225,23,79,.95)";
       ctx.font = "900 64px Times New Roman, ui-serif, serif";
       ctx.textAlign = "center";
+      ctx.fillText("CUPÓN OFICIAL", w/2, 230 showcaseIA 2024; // keep original? nope - remove accidental text
       ctx.fillText("CUPÓN OFICIAL", w/2, 230);
 
       ctx.font = "900 48px Times New Roman, ui-serif, serif";
@@ -2622,4 +2621,3 @@ y recuerdos que se van a quedar.`;
   </script>
 </body>
 </html>
-```
