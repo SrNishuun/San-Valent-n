@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="es">
 <head>
@@ -41,7 +42,7 @@
       background: radial-gradient(900px 700px at 20% 10%, rgba(255,45,107,.18), transparent 55%),
                   linear-gradient(135deg, #120a10, #2a0f1b);
       color: rgba(255,255,255,.88);
-      color-scheme: dark; /* ✅ FIX: esto evita el selector incorrecto body.night :root */
+      color-scheme: dark;
     }
 
     *{ box-sizing:border-box; }
@@ -1820,7 +1821,6 @@ y momentos que se queden grabados.
           <div class="galleryTitle">Mini galería</div>
           <div class="gallerySub">Toca una polaroid para verla en grande ✨</div>
 
-          <!-- ✅✅✅ MOD: AHORA SON 12 FOTOS ✅✅✅ -->
           <div class="polaroids" id="polaroids">
             <div class="polaroid" style="--rot:-2.4deg" data-src="Foto%201.jpeg" data-title="Foto 1 💗">
               <div class="pic"><img src="Foto%201.jpeg" alt="Foto 1" loading="lazy" decoding="async"></div>
@@ -2319,7 +2319,7 @@ y recuerdos que se van a quedar.`;
 
     function openModal(src, title){
       if(!modal || !modalImg) return;
-      modalImg.src = src; // ya viene con %20
+      modalImg.src = src;
       if(modalTitle) modalTitle.textContent = title || "💗";
       modal.classList.add("show");
       modal.setAttribute("aria-hidden","false");
@@ -2545,7 +2545,6 @@ y recuerdos que se van a quedar.`;
       ctx.fillStyle = "rgba(225,23,79,.95)";
       ctx.font = "900 64px Times New Roman, ui-serif, serif";
       ctx.textAlign = "center";
-      ctx.fillText("CUPÓN OFICIAL", w/2, 230 showcaseIA 2024; // keep original? nope - remove accidental text
       ctx.fillText("CUPÓN OFICIAL", w/2, 230);
 
       ctx.font = "900 48px Times New Roman, ui-serif, serif";
@@ -2621,3 +2620,4 @@ y recuerdos que se van a quedar.`;
   </script>
 </body>
 </html>
+```
