@@ -825,7 +825,7 @@
         radial-gradient(900px 420px at 50% 25%, rgba(255,255,255,.35), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
       border: 1px solid rgba(225,23,79,.18);
-      padding: 8px 8px 10px;   /* ⬅️ antes 10/10/12 */
+      padding: 8px 8px 10px;
       box-shadow: 0 12px 28px rgba(0,0,0,.06);
       position:relative;
       overflow:hidden;
@@ -855,7 +855,6 @@
       to  { transform: translate3d( 1.5%,  1%, 0) scale(1.02); opacity:.65; }
     }
 
-    /* ✅ (MOD) matriz más baja/pequeña */
     .matrix{
       position:relative;
       display:grid;
@@ -864,16 +863,15 @@
       gap: 0;
       border-radius: 14px;
       overflow:hidden;
-      min-height: 380px; /* ⬅️ antes 470 */
+      min-height: 380px;
     }
-    @media (max-width:520px){ .matrix{ min-height: 430px; } } /* ⬅️ antes 520 */
+    @media (max-width:520px){ .matrix{ min-height: 430px; } }
 
-    /* ✅ (MOD) celdas más pequeñas */
     .cell{
       position:relative;
       display:grid;
       place-items:center;
-      padding: 10px 8px; /* ⬅️ antes 14px 10px */
+      padding: 10px 8px;
       background: rgba(255,255,255,.08);
       border: 1px solid rgba(225,23,79,.55);
     }
@@ -886,38 +884,35 @@
     .cell.c1{ border-left: 0; }
     .cell.c3{ border-right: 0; }
 
-    /* ✅ (MOD) texto más compacto */
     .reasonBlock{
       width: 100%;
-      max-width: 200px; /* ⬅️ antes 240 */
+      max-width: 200px;
       text-align:center;
       font-family: var(--serif);
       color: rgba(225,23,79,.92);
-      line-height: 1.28; /* ⬅️ antes 1.35 */
-      font-size: 14px;   /* ⬅️ antes 16 */
+      line-height: 1.28;
+      font-size: 14px;
       white-space: pre-line;
       position:relative;
       z-index:2;
     }
     body.night .reasonBlock{ color: rgba(255,122,152,.92); }
 
-    /* ✅ (MOD) número más chico */
     .reasonBlock .n{
       position:absolute;
-      top: -8px;     /* ⬅️ antes -10 */
-      left: -4px;    /* ⬅️ antes -6 */
-      font-size: 28px; /* ⬅️ antes 34 */
+      top: -8px;
+      left: -4px;
+      font-size: 28px;
       font-weight: 900;
       color: rgba(225,23,79,.95);
       transform: rotate(-2deg);
       text-shadow: 0 10px 18px rgba(0,0,0,.08);
     }
     body.night .reasonBlock .n{ color: rgba(255,122,152,.95); }
-    .reasonBlock .txt{ display:block; padding-top: 16px; } /* ⬅️ antes 18 */
+    .reasonBlock .txt{ display:block; padding-top: 16px; }
 
-    /* ✅ (MOD) corazones del centro más chicos */
     .bigHeart{
-      font-size: 44px; /* ⬅️ antes 56 */
+      font-size: 44px;
       line-height: 1;
       filter: drop-shadow(0 16px 20px rgba(225,23,79,.18));
       animation: heartFloat 2.3s var(--ease2) infinite alternate;
@@ -1012,10 +1007,9 @@
     }
     body.night .gallerySub{ color: rgba(255,255,255,.70); }
 
-    /* ✅ (MOD) ahora caben más polaroids: 3 columnas en pantallas medianas/grandes */
     .polaroids{
       display:grid;
-      grid-template-columns: repeat(3, 1fr); /* ⬅️ antes 2 */
+      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin-top: 10px;
     }
@@ -1715,7 +1709,6 @@ y momentos que se queden grabados.
 
             <div class="photo">
               <div class="frame loading" id="mainFrame" aria-label="Foto de nosotros">
-                <!-- ✅ pon tu archivo real aquí -->
                 <img id="mainPhoto" src="foto.jpg.jpeg" alt="Nuestra foto" loading="eager" decoding="async">
               </div>
               <div class="overlayBtn">¿Aceptas la misión de ser mi San Valentín?</div>
@@ -1821,7 +1814,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 3: GALERÍA POLAROIDS -->
+        <!-- PAGE 3 -->
         <section class="page" data-page="2" aria-label="Galería">
           <div class="topline">
             <span>Edición especial</span>
@@ -1833,7 +1826,6 @@ y momentos que se queden grabados.
           <div class="galleryTitle">Mini galería</div>
           <div class="gallerySub">Toca una polaroid para verla en grande ✨</div>
 
-          <!-- ✅ (MOD) 10 fotos: cambia las rutas a tus fotos reales -->
           <div class="polaroids" id="polaroids">
             <div class="polaroid" style="--rot:-2.4deg" data-src="foto1.jpg" data-title="Ese día 🥹">
               <div class="pic"><img src="foto1.jpg" alt="Foto 1" loading="lazy" decoding="async"></div>
@@ -1881,7 +1873,7 @@ y momentos que se queden grabados.
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 4: PREGUNTA -->
+        <!-- PAGE 4 -->
         <section class="page" data-page="3" aria-label="La gran pregunta">
           <div class="topline">
             <span>Edición especial</span>
@@ -1917,7 +1909,7 @@ y una sonrisa nerviosa:
           <div class="miniFooter">Valentine Edition</div>
         </section>
 
-        <!-- PAGE 5 (FINAL) -->
+        <!-- PAGE 5 -->
         <section class="page" data-page="4" aria-label="Confirmado" id="finalPage">
           <div class="final">
             <div class="finalCard" id="finalCard">
@@ -1940,7 +1932,6 @@ sonrisas inevitables
 y recuerdos que se van a quedar.
               </p>
 
-              <!-- ✅ Cupón descargable -->
               <div class="couponBox">
                 <div class="t">🎟️ Cupón descargable</div>
                 <div class="couponRow">
@@ -1998,9 +1989,9 @@ y recuerdos que se van a quedar.
     });
 
     /* ========= CONFIG PERSONALIZACIÓN ========= */
-    const NOMBRE = "Tu Amor"; // <- cambia aquí (ej: "Sofía")
-    const INI_1 = "A";        // <- inicial tuya
-    const INI_2 = "J";        // <- inicial de la otra persona
+    const NOMBRE = "Tu Amor";
+    const INI_1 = "A";
+    const INI_2 = "J";
 
     /* ========= AUDIO ========= */
     const bgMusic = document.getElementById("bgMusic");
@@ -2083,7 +2074,7 @@ y recuerdos que se van a quedar.`;
       }
     })();
 
-    /* ========= FOTO PRINCIPAL: skeleton hasta cargar ========= */
+    /* ========= FOTO PRINCIPAL ========= */
     const mainPhoto = document.getElementById("mainPhoto");
     const mainFrame = document.getElementById("mainFrame");
     if(mainPhoto && mainFrame){
@@ -2151,7 +2142,7 @@ y recuerdos que se van a quedar.`;
       }, 900);
     });
 
-    /* ========= SECRETO: easter egg en el sello LOVE ========= */
+    /* ========= SECRETO: sello ========= */
     const seal = document.getElementById("seal");
     let sealTaps = 0;
     let sealTimer = null;
@@ -2181,9 +2172,9 @@ y recuerdos que se van a quedar.`;
     const ASK_INDEX = 3;                 // página pregunta
     const FINAL_INDEX = TOTAL - 1;       // 4
 
-    // ✅ guardar / restaurar progreso
-    let current = parseInt(localStorage.getItem("page") || "0", 10);
-    current = isNaN(current) ? 0 : clamp(current, 0, FINAL_INDEX);
+    /* ✅✅✅ FIX: SIEMPRE INICIA EN LA PRIMERA PÁGINA ✅✅✅ */
+    let current = 0;
+    localStorage.removeItem("page"); // opcional: limpia el guardado previo
 
     function clearAnim(p){
       p.classList.remove("flip-in-right","flip-out-left","flip-in-left","flip-out-right");
@@ -2198,7 +2189,6 @@ y recuerdos que se van a quedar.`;
     function updateNav(){
       prev.disabled = current === 0;
 
-      // ✅ En la pregunta escondemos "siguiente" para hacerlo más “dramático”
       if(current === ASK_INDEX){
         next.classList.add("hidden");
         next.disabled = true;
@@ -2208,7 +2198,9 @@ y recuerdos que se van a quedar.`;
       }
 
       updateProgress();
-      localStorage.setItem("page", String(current));
+
+      /* ❌ ya no guardamos la página (para que siempre abra en la 1) */
+      // localStorage.setItem("page", String(current));
     }
 
     function show(i, dir="right", sfx=true){
@@ -2222,7 +2214,6 @@ y recuerdos que se van a quedar.`;
       out.classList.add("active");
       inc.classList.add("active");
 
-      // flip anim
       if(dir === "right"){
         out.classList.add("flip-out-left");
         inc.classList.add("flip-in-right");
@@ -2248,20 +2239,17 @@ y recuerdos que se van a quedar.`;
     prev.addEventListener("click", () => show(current - 1, "left"));
     next.addEventListener("click", () => show(current + 1, "right"));
 
-    // ✅ aplicar página inicial restaurada
     pages.forEach((p, idx)=> p.classList.toggle("active", idx === current));
     updateNav();
 
-    /* ✅ teclado */
     window.addEventListener("keydown", (e)=>{
       if(intro && !intro.classList.contains("hide")) return;
-
       if(e.key === "ArrowLeft") show(current - 1, "left");
       if(e.key === "ArrowRight") show(current + 1, "right");
       if(e.key === "Escape") closeModal();
     });
 
-    /* ✅ swipe (en .mag) */
+    /* swipe */
     const magEl = document.querySelector(".mag");
     let sx=0, sy=0;
     if(magEl){
@@ -2276,13 +2264,11 @@ y recuerdos que se van a quedar.`;
         const dx=t.clientX - sx;
         const dy=t.clientY - sy;
 
-        // ✅ swipe horizontal claro (evita conflictos con scroll)
         if (Math.abs(dx) > 70 && Math.abs(dy) < 55){
           dx < 0 ? show(current + 1, "right") : show(current - 1, "left");
         }
       }, {passive:true});
 
-      // ✅ brillo siguiendo puntero
       magEl.addEventListener("pointermove",(e)=>{
         const r = magEl.getBoundingClientRect();
         const x = ((e.clientX - r.left) / r.width) * 100;
@@ -2526,7 +2512,7 @@ y recuerdos que se van a quedar.`;
       }
     }
 
-    /* ========= CUPÓN: Descargar (Canvas) ========= */
+    /* ========= CUPÓN: Descargar ========= */
     const dlCoupon = document.getElementById("dlCoupon");
     const copyMsg = document.getElementById("copyMsg");
 
@@ -2536,14 +2522,12 @@ y recuerdos que se van a quedar.`;
       c.width = w; c.height = h;
       const ctx = c.getContext("2d");
 
-      // fondo
       const g = ctx.createLinearGradient(0,0,w,h);
       g.addColorStop(0, "#ffd1df");
       g.addColorStop(1, "#ff8fb0");
       ctx.fillStyle = g;
       ctx.fillRect(0,0,w,h);
 
-      // brillo
       ctx.globalAlpha = 0.18;
       ctx.fillStyle = "#ffffff";
       ctx.beginPath();
@@ -2551,18 +2535,15 @@ y recuerdos que se van a quedar.`;
       ctx.fill();
       ctx.globalAlpha = 1;
 
-      // tarjeta
       ctx.fillStyle = "rgba(255,255,255,.90)";
       roundRect(ctx, 80, 90, w-160, h-180, 36, true, false);
 
-      // borde punteado
       ctx.strokeStyle = "rgba(225,23,79,.35)";
       ctx.lineWidth = 6;
       ctx.setLineDash([14, 12]);
       roundRect(ctx, 120, 130, w-240, h-260, 30, false, true);
       ctx.setLineDash([]);
 
-      // títulos
       ctx.fillStyle = "rgba(225,23,79,.95)";
       ctx.font = "900 64px Times New Roman, ui-serif, serif";
       ctx.textAlign = "center";
@@ -2578,15 +2559,12 @@ y recuerdos que se van a quedar.`;
       ctx.font = "700 30px Times New Roman, ui-serif, serif";
       ctx.fillText("Canjeable por: abrazos, risas y un día bonito 💗", w/2, 455);
 
-      // iniciales
       ctx.fillStyle = "rgba(225,23,79,.95)";
       ctx.font = "900 56px Times New Roman, ui-serif, serif";
       ctx.fillText(`${INI_1} + ${INI_2}`, w/2, 545);
 
-      // footer
       ctx.fillStyle = "rgba(42,31,36,.55)";
       ctx.font = "900 22px Arial, ui-sans-serif, system-ui";
-      ctx.letterSpacing = "2px";
       ctx.fillText("VALENTINE EDITION", w/2, 610);
 
       return c.toDataURL("image/png");
